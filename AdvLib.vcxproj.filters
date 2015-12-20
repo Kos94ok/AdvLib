@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Precompiled Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Library Code">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{07dac4b2-a367-4a8e-a66b-d78f0698a1b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API">
+      <UniqueIdentifier>{c80322d9-46b0-4335-86c2-3cc3d7f0b9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API\Drawable">
+      <UniqueIdentifier>{166a1c2e-4b47-497e-b6e2-7d55b4a41ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems">
+      <UniqueIdentifier>{f3242ec1-fee0-4f19-952f-f3d478575fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems\Timer Subsystem">
+      <UniqueIdentifier>{a50ddb34-bcc9-4aaa-b929-95cd1da3af59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems\Event Subsystem">
+      <UniqueIdentifier>{d0ee8bff-1c04-4601-8538-6bcd5d980902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems\Core">
+      <UniqueIdentifier>{59c579a1-66ba-4902-8edb-add31780d2d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API\Texture">
+      <UniqueIdentifier>{84203b56-6c5c-4c3d-a2ec-2963c90b3af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Support">
+      <UniqueIdentifier>{304cab02-6cd7-4b8f-a38c-d0ef685556dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Support\Exception">
+      <UniqueIdentifier>{dcbc7e5e-97d0-4117-a228-6eba92a14b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API\Mouse">
+      <UniqueIdentifier>{1d2b0ff8-13c1-496c-a24c-fc65cc62e94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API\UI">
+      <UniqueIdentifier>{834da121-a5f5-4a5b-bbb2-446795b25fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Support\Math">
+      <UniqueIdentifier>{80c5054c-54d3-4f00-950a-93d054a14af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\API\Vectox">
+      <UniqueIdentifier>{cd419abb-4988-4801-99ad-645233c95282}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled Header</Filter>
+    </ClInclude>
+    <ClInclude Include="advlib.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>Library Code\Systems\Timer Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="core.h">
+      <Filter>Library Code\Systems\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="other.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="drawable.h">
+      <Filter>Library Code\API\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Library Code\API\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="exception.h">
+      <Filter>Library Code\Support\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.h">
+      <Filter>Library Code\API\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>Library Code\API\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Library Code\Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vectox.h">
+      <Filter>Library Code\API\Vectox</Filter>
+    </ClInclude>
+    <ClInclude Include="align.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="bbool.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="args.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx_main.cpp">
+      <Filter>Precompiled Header</Filter>
+    </ClCompile>
+    <ClCompile Include="timer_main.cpp">
+      <Filter>Library Code\Systems\Timer Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="event_main.cpp">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="core_main.cpp">
+      <Filter>Library Code\Systems\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="event_queue.cpp">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="event_thread.cpp">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="timer_thread.cpp">
+      <Filter>Library Code\Systems\Timer Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="texture_main.cpp">
+      <Filter>Library Code\API\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="exception_main.cpp">
+      <Filter>Library Code\Support\Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="drawable_main.cpp">
+      <Filter>Library Code\API\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="event_default.cpp">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse_main.cpp">
+      <Filter>Library Code\API\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_main.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_font.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_paint.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_util.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="math_main.cpp">
+      <Filter>Library Code\Support\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="vectox_main.cpp">
+      <Filter>Library Code\API\Vectox</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_search.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_thread.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_element_small.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_element_add.cpp">
+      <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
