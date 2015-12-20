@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include "core.h"
 #include "drawable.h"
 #include "align.h"

@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "event.h"
 #include "ui.h"
+#include "input.h"
 
 void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 {
@@ -88,6 +89,19 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	else if (eventPoll.type == sf::Event::KeyReleased) {
 		// L0 event
 		add(EVENT_KEY_RELEASE, cEventArgs(eventPoll.key.code), FAMILY_GENERIC);
+	}
+	/*
+	// Text input
+	*/
+	else if (eventPoll.type == sf::Event::TextEntered) {
+		// Text input - L0 event
+		bool val = advInput.add(eventPoll.text.unicode);
+		if (val) {
+			add(EVENT_INPUT_ADD, cEventArgs(eventPoll.text.unicode), FAMILY_GENERIC);
+		}
+		else if (advInput.__isOpen()) {
+			add(EVENT_INPUT_WRONG, cEventArgs(eventPoll.text.unicode), FAMILY_GENERIC);
+		}
 	}
 	/*
 	// Main window close

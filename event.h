@@ -6,6 +6,7 @@
 #define FAMILY_INTERFACE				1001
 #define FAMILY_POST						1002
 
+// 1000 - L0 events
 #define EVENT_INIT						1000
 #define EVENT_TEST						1001
 #define EVENT_PRESHUT					1002
@@ -17,7 +18,10 @@
 #define EVENT_MOUSE_MOVE				1008
 #define EVENT_KEY_PRESS					1009
 #define EVENT_KEY_RELEASE				1010
+#define EVENT_INPUT_ADD					1011
+#define EVENT_INPUT_WRONG				1012
 
+// 1100 - UI L1 events
 #define EVENT_UIBTN_PRESS				1100
 #define EVENT_UIBTN_RELEASE				1101
 #define EVENT_NOBTN_PRESS				1102

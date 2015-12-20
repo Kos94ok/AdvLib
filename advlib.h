@@ -9,3 +9,4 @@
 #include "mouse.h"
 #include "ui.h"
 #include "vectox.h"
+#include "input.h"

@@ -55,6 +55,9 @@
     <Filter Include="Library Code\API\Vectox">
       <UniqueIdentifier>{cd419abb-4988-4801-99ad-645233c95282}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library Code\API\Input">
+      <UniqueIdentifier>{c62769c7-4a38-4a65-8f09-43a307cab963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="args.h">
       <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Library Code\API\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="ui_element_add.cpp">
       <Filter>Library Code\API\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="input_main.cpp">
+      <Filter>Library Code\API\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

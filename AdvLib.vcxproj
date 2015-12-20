@@ -92,6 +92,7 @@
     <ClInclude Include="drawable.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="exception.h" />
+    <ClInclude Include="input.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="other.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="event_queue.cpp" />
     <ClCompile Include="event_thread.cpp" />
     <ClCompile Include="exception_main.cpp" />
+    <ClCompile Include="input_main.cpp" />
     <ClCompile Include="math_main.cpp" />
     <ClCompile Include="mouse_main.cpp" />
     <ClCompile Include="stdafx_main.cpp">
