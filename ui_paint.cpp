@@ -70,17 +70,20 @@ void adv::cUIElement::updateBrush()
 		// Main brush
 		brushRect.setPosition(math.round(pos()));
 		brushRect.setSize(size());
+		// Origin
+		brushRect.setOrigin(center());
+		brushRectOver.setOrigin(center());
+		// Texture check
 		if (_texture == MISSINGNO) {
 			brushRect.setSize(vec2f(0, 0));
 		}
 
 		// Overlay brush
 		brushRectOver = brushRect;
-		brushRectOver.setFillColor(color(255, 255, 255, (int)((float)__button_fadeCur / (float)__button_fadeMax * 255)));
-
-		// Origin
-		brushRect.setOrigin(center());
-		brushRectOver.setOrigin(center());
+		if (__button_hoverTex != MISSINGNO) {
+			brushRectOver.setSize(size());
+			brushRectOver.setFillColor(color(255, 255, 255, (int)((float)__button_fadeCur / (float)__button_fadeMax * 255)));
+		}
 
 		// Text brush
 		brushText.setPosition(math.round(pos()));

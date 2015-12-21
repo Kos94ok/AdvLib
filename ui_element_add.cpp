@@ -58,6 +58,7 @@ void adv::cUIWindow::addButton(string id, vec2f pos, vec2f size, string name, in
 	newElement.setImageTexture(bgTex);
 	newElement.setButtonName(name);
 	newElement.setButtonAlign(align);
+	newElement.setButtonFadeMax(1.f);
 	// Calculate the origin
 	vec2f origin;
 	if (align & ALIGN_CENTER) { origin.x = (float)math.round(size.x / 2.00f); }
