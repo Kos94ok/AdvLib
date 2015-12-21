@@ -156,6 +156,10 @@ namespace adv
 		void addButtonText(string id, wstring text, string fontIndex, color clr = color(0, 0, 0), int align = ALIGN_LEFT);
 		void addButtonHover(string id, int texture, float time, color textColor = color(0, 0, 0));
 
+		void setImagePos(string id, vec2f newPos);
+		void setImageSize(string id, vec2f newSize);
+		void setImageAlign(string id, int align);
+		void setImageTexture(string id, int tex);
 		void setLabelPos(string id, vec2f newPos);
 		void setLabelText(string id, wstring text);
 		void setLabelColor(string id, color clr);

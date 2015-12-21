@@ -7,6 +7,30 @@ void adv::cUIWindow::showElement(string id, int type, bbool val) {
 	if (elem != nullptr) { elem->show(val); }
 }
 
+void adv::cUIWindow::setImagePos(string id, vec2f newPos)
+{
+	cUIElement* elem = _getElement(id, TYPE_IMAGE);
+	if (elem != nullptr) { elem->moveto(pos + newPos); }
+}
+
+void adv::cUIWindow::setImageSize(string id, vec2f newSize)
+{
+	cUIElement* elem = _getElement(id, TYPE_IMAGE);
+	if (elem != nullptr) { elem->resize(newSize); }
+}
+
+void adv::cUIWindow::setImageAlign(string id, int align)
+{
+	cUIElement* elem = _getElement(id, TYPE_IMAGE);
+	if (elem != nullptr) { elem->setImageAlign(align); }
+}
+
+void adv::cUIWindow::setImageTexture(string id, int tex)
+{
+	cUIElement* elem = _getElement(id, TYPE_IMAGE);
+	if (elem != nullptr) { elem->setImageTexture(tex); }
+}
+
 void adv::cUIWindow::setLabelPos(string id, vec2f newPos) {
 	cUIElement* elem = _getElement(id, TYPE_LABEL);
 	if (elem != nullptr) { elem->moveto(pos + newPos); }

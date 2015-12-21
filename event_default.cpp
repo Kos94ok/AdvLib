@@ -82,6 +82,11 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	else if (eventPoll.type == sf::Event::KeyPressed) {
 		// L0 event
 		add(EVENT_KEY_PRESS, cEventArgs(eventPoll.key.code), FAMILY_GENERIC);
+		// Special input characters - L1 event
+		if (advInput.isEnabled()) {
+			bool val = advInput.addSpec(eventPoll.key.code);
+			if (val) { add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId()), FAMILY_GENERIC); } 
+		}
 	}
 	/*
 	// Keyboard key release
@@ -97,10 +102,10 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 		// Text input - L0 event
 		bool val = advInput.add(eventPoll.text.unicode);
 		if (val) {
-			add(EVENT_INPUT_ADD, cEventArgs(eventPoll.text.unicode), FAMILY_GENERIC);
+			add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId()), FAMILY_GENERIC);
 		}
-		else if (advInput.__isOpen()) {
-			add(EVENT_INPUT_WRONG, cEventArgs(eventPoll.text.unicode), FAMILY_GENERIC);
+		else if (advInput.isEnabled()) {
+			add(EVENT_INPUT_WRONG, cEventArgs(eventPoll.text.unicode, advInput.getId()), FAMILY_GENERIC);
 		}
 	}
 	/*

@@ -18,7 +18,7 @@
 #define EVENT_MOUSE_MOVE				1008
 #define EVENT_KEY_PRESS					1009
 #define EVENT_KEY_RELEASE				1010
-#define EVENT_INPUT_ADD					1011
+#define EVENT_INPUT_UPDATE				1011
 #define EVENT_INPUT_WRONG				1012
 
 // 1100 - UI L1 events
