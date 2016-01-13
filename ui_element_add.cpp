@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "ui.h"
 
 adv::cUIElement* adv::cUIWindow::_getElement(string id, int type)
@@ -61,10 +61,10 @@ void adv::cUIWindow::addButton(string id, vec2f pos, vec2f size, string name, in
 	newElement.setButtonFadeMax(1.f);
 	// Calculate the origin
 	vec2f origin;
-	if (align & ALIGN_CENTER) { origin.x = (float)math.round(size.x / 2.00f); }
-	else if (align & ALIGN_RIGHT) { origin.x = (float)math.round(size.x); }
-	if (align & ALIGN_MID) { origin.y = (float)math.round(size.y / 2.00f); }
-	else if (align & ALIGN_BOT) { origin.y = (float)math.round(size.y); }
+	if (align & ALIGN_CENTER) { origin.x = (float)advMath.round(size.x / 2.00f); }
+	else if (align & ALIGN_RIGHT) { origin.x = (float)advMath.round(size.x); }
+	if (align & ALIGN_MID) { origin.y = (float)advMath.round(size.y / 2.00f); }
+	else if (align & ALIGN_BOT) { origin.y = (float)advMath.round(size.y); }
 	newElement.centralize(origin);
 	// Push to vector
 	__childElement.push_back(newElement);

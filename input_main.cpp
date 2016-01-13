@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "input.h"
 
 adv::cInputMain advInput;

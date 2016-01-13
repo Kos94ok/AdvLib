@@ -45,6 +45,10 @@
     <IncludePath>$(ProjectDir)Compiler\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Compiler\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$ProjectDir\Compiler\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$ProjectDir\Compiler\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -69,6 +73,7 @@
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
+      <PrecompiledHeaderFile>header.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,8 +88,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="advlib.h" />
+    <ClInclude Include="advlib.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="align.h" />
+    <ClInclude Include="animation.h" />
     <ClInclude Include="args.h" />
     <ClInclude Include="bbool.h" />
     <ClInclude Include="const.h" />
@@ -93,16 +101,17 @@
     <ClInclude Include="event.h" />
     <ClInclude Include="exception.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="math.h" />
+    <ClInclude Include="advmath.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="other.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="header.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="vectox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="animation_main.cpp" />
     <ClCompile Include="core_main.cpp" />
     <ClCompile Include="drawable_main.cpp" />
     <ClCompile Include="event_default.cpp" />
@@ -111,9 +120,9 @@
     <ClCompile Include="event_thread.cpp" />
     <ClCompile Include="exception_main.cpp" />
     <ClCompile Include="input_main.cpp" />
-    <ClCompile Include="math_main.cpp" />
+    <ClCompile Include="advmath_main.cpp" />
     <ClCompile Include="mouse_main.cpp" />
-    <ClCompile Include="stdafx_main.cpp">
+    <ClCompile Include="header_main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

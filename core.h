@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "stdafx.h"
+#include "header.h"
 #include "const.h"
 #include "other.h"
 #include "exception.h"
-#include "math.h"
+#include "advmath.h"
 #include "bbool.h"
 
 #define STATE_UP				0			// Thread is working normally

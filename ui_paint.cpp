@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "ui.h"
 #include "texture.h"
 
@@ -35,20 +35,20 @@ void adv::cUIElement::updateBrush()
 
 	if (type == TYPE_IMAGE) {
 		// Main brush
-		brushRect.setPosition(math.round(pos()));
+		brushRect.setPosition(advMath.round(pos()));
 		brushRect.setSize(size());
 
 		// Origin
 		vec2f origin;
-		if (__image_align & ALIGN_CENTER) { origin.x = (float)math.round(size().x / 2.00f); }
-		else if (__image_align & ALIGN_RIGHT) { origin.x = (float)math.round(size().x); }
-		if (__image_align & ALIGN_MID) { origin.y = (float)math.round(size().y / 2.00f); }
-		else if (__image_align & ALIGN_BOT) { origin.y = (float)math.round(size().y); }
+		if (__image_align & ALIGN_CENTER) { origin.x = (float)advMath.round(size().x / 2.00f); }
+		else if (__image_align & ALIGN_RIGHT) { origin.x = (float)advMath.round(size().x); }
+		if (__image_align & ALIGN_MID) { origin.y = (float)advMath.round(size().y / 2.00f); }
+		else if (__image_align & ALIGN_BOT) { origin.y = (float)advMath.round(size().y); }
 		brushRect.setOrigin(origin);
 	}
 	if (type == TYPE_LABEL) {
 		// Main brush
-		brushText.setPosition(math.round(pos()));
+		brushText.setPosition(advMath.round(pos()));
 		brushText.setFont(advUI.getFont(__label_fontIndex)->handle);
 		brushText.setCharacterSize(advUI.getFont(__label_fontIndex)->size);
 		brushText.setString(sf::String(__label_text));
@@ -59,16 +59,16 @@ void adv::cUIElement::updateBrush()
 		bounds.height = 26;
 		vec2f origin;
 		if (__label_align & ALIGN_LEFT) { origin.x = 0.00f; }
-		else if (__label_align & ALIGN_CENTER) { origin.x = (float)math.round(bounds.width / 2.00f); }
-		else if (__label_align & ALIGN_RIGHT) { origin.x = (float)math.round(bounds.width); }
+		else if (__label_align & ALIGN_CENTER) { origin.x = (float)advMath.round(bounds.width / 2.00f); }
+		else if (__label_align & ALIGN_RIGHT) { origin.x = (float)advMath.round(bounds.width); }
 		if (__label_align & ALIGN_TOP) { origin.y = 0.00f; }
-		else if (__label_align & ALIGN_MID) { origin.y = (float)math.round(bounds.height / 2.00f); }
-		else if (__label_align & ALIGN_BOT) { origin.y = (float)math.round(bounds.height); }
+		else if (__label_align & ALIGN_MID) { origin.y = (float)advMath.round(bounds.height / 2.00f); }
+		else if (__label_align & ALIGN_BOT) { origin.y = (float)advMath.round(bounds.height); }
 		brushText.setOrigin(origin);
 	}
 	if (type == TYPE_BUTTON) {
 		// Main brush
-		brushRect.setPosition(math.round(pos()));
+		brushRect.setPosition(advMath.round(pos()));
 		brushRect.setSize(size());
 		// Origin
 		brushRect.setOrigin(center());
@@ -86,25 +86,25 @@ void adv::cUIElement::updateBrush()
 		}
 
 		// Text brush
-		brushText.setPosition(math.round(pos()));
+		brushText.setPosition(advMath.round(pos()));
 		brushText.setFont(advUI.getFont(__label_fontIndex)->handle);
 		brushText.setCharacterSize(advUI.getFont(__label_fontIndex)->size);
 		brushText.setString(sf::String(__label_text));
 		float fadeVal = (float)__button_fadeCur / (float)__button_fadeMax;
 		brushText.setColor(
 			color(
-				math.round(__label_color.r * (1 - fadeVal) + __button_hoverTextColor.r * fadeVal),
-				math.round(__label_color.g * (1 - fadeVal) + __button_hoverTextColor.g * fadeVal),
-				math.round(__label_color.b * (1 - fadeVal) + __button_hoverTextColor.b * fadeVal)
+				advMath.round(__label_color.r * (1 - fadeVal) + __button_hoverTextColor.r * fadeVal),
+				advMath.round(__label_color.g * (1 - fadeVal) + __button_hoverTextColor.g * fadeVal),
+				advMath.round(__label_color.b * (1 - fadeVal) + __button_hoverTextColor.b * fadeVal)
 			));
 
 		sf::FloatRect bounds = brushText.getLocalBounds();
 		bounds.height = 26;
 		vec2f origin = center();
-		if (__label_align & ALIGN_CENTER) { origin.x += (float)math.round(bounds.width / 2.00f) - (float)math.round(size().x / 2.00f); }
-		else if (__label_align & ALIGN_RIGHT) { origin.x += (float)math.round(bounds.width) - size().x; }
-		if (__label_align & ALIGN_MID) { origin.y += (float)math.round(bounds.height) - (float)math.round(size().y / 2.00f); }
-		else if (__label_align & ALIGN_BOT) { origin.y += (float)math.round(bounds.height * 2) - size().y; }
+		if (__label_align & ALIGN_CENTER) { origin.x += (float)advMath.round(bounds.width / 2.00f) - (float)advMath.round(size().x / 2.00f); }
+		else if (__label_align & ALIGN_RIGHT) { origin.x += (float)advMath.round(bounds.width) - size().x; }
+		if (__label_align & ALIGN_MID) { origin.y += (float)advMath.round(bounds.height) - (float)advMath.round(size().y / 2.00f); }
+		else if (__label_align & ALIGN_BOT) { origin.y += (float)advMath.round(bounds.height * 2) - size().y; }
 		brushText.setOrigin(origin);
 	}
 }

@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "texture.h"
 
 adv::cTextureMain advTexture;

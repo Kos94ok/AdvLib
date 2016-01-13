@@ -58,11 +58,11 @@
     <Filter Include="Library Code\API\UI\Input">
       <UniqueIdentifier>{c62769c7-4a38-4a65-8f09-43a307cab963}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library Code\API\Drawable\Animation">
+      <UniqueIdentifier>{5a62122c-df46-4c3d-8d24-5752edd8a4be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Precompiled Header</Filter>
-    </ClInclude>
     <ClInclude Include="advlib.h">
       <Filter>Interface</Filter>
     </ClInclude>
@@ -96,9 +96,6 @@
     <ClInclude Include="ui.h">
       <Filter>Library Code\API\UI</Filter>
     </ClInclude>
-    <ClInclude Include="math.h">
-      <Filter>Library Code\Support\Math</Filter>
-    </ClInclude>
     <ClInclude Include="vectox.h">
       <Filter>Library Code\API\Vectox</Filter>
     </ClInclude>
@@ -114,11 +111,17 @@
     <ClInclude Include="input.h">
       <Filter>Library Code\API\UI\Input</Filter>
     </ClInclude>
+    <ClInclude Include="animation.h">
+      <Filter>Library Code\API\Drawable\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>Precompiled Header</Filter>
+    </ClInclude>
+    <ClInclude Include="advmath.h">
+      <Filter>Library Code\Support\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx_main.cpp">
-      <Filter>Precompiled Header</Filter>
-    </ClCompile>
     <ClCompile Include="timer_main.cpp">
       <Filter>Library Code\Systems\Timer Subsystem</Filter>
     </ClCompile>
@@ -164,9 +167,6 @@
     <ClCompile Include="ui_util.cpp">
       <Filter>Library Code\API\UI</Filter>
     </ClCompile>
-    <ClCompile Include="math_main.cpp">
-      <Filter>Library Code\Support\Math</Filter>
-    </ClCompile>
     <ClCompile Include="vectox_main.cpp">
       <Filter>Library Code\API\Vectox</Filter>
     </ClCompile>
@@ -184,6 +184,15 @@
     </ClCompile>
     <ClCompile Include="input_main.cpp">
       <Filter>Library Code\API\UI\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="animation_main.cpp">
+      <Filter>Library Code\API\Drawable\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="header_main.cpp">
+      <Filter>Precompiled Header</Filter>
+    </ClCompile>
+    <ClCompile Include="advmath_main.cpp">
+      <Filter>Library Code\Support\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

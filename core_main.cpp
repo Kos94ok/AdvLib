@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "core.h"
 #include "event.h"
 #include "timer.h"

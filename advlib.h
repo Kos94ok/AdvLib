@@ -1,12 +1,13 @@
 
 #pragma once
 
-#include "core.h"
-#include "event.h"
-#include "timer.h"
-#include "drawable.h"
-#include "texture.h"
-#include "mouse.h"
-#include "ui.h"
-#include "vectox.h"
-#include "input.h"
+#include <advLib/core.h>
+#include <advLib/event.h>
+#include <advLib/timer.h>
+#include <advLib/drawable.h>
+#include <advLib/animation.h>
+#include <advLib/texture.h>
+#include <advLib/mouse.h>
+#include <advLib/ui.h>
+#include <advLib/vectox.h>
+#include <advLib/input.h>

@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "ui.h"
 
 int adv::cUIMain::getHoveredButtonCount() {
@@ -33,7 +33,7 @@ vector<adv::cUIElement*> adv::cUIWindow::findByPoint(vec2f point, int type, int 
 		retArray.insert(retArray.end(), smallArray.begin(), smallArray.end());
 	}
 	for (int i = 0; i < (int)__childElement.size(); i++) {
-		if (__childElement[i].type == type && math.isPointInRect(point.x + __childElement[i].center().x, point.y + __childElement[i].center().y,
+		if (__childElement[i].type == type && advMath.isPointInRect(point.x + __childElement[i].center().x, point.y + __childElement[i].center().y,
 			__childElement[i].pos().x, __childElement[i].pos().y, __childElement[i].size().x, __childElement[i].size().y)
 			&& (!(flags & FND_EX_HIDDEN) || __childElement[i].isShown()))
 		{

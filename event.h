@@ -32,6 +32,14 @@
 namespace adv
 {
 	/*
+	// 
+	*/
+	class cEventHandler
+	{
+
+	};
+
+	/*
 	// Event data class. Contains data about occured event.
 	*/
 	class cEvent

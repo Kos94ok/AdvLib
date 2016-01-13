@@ -1,14 +1,22 @@
 
-#include "stdafx.h"
+#include "header.h"
 #include "ui.h"
 
 int adv::cUIMain::addFont(string id, string filename, int size)
 {
+	bool isValid;
 	cUIFont font;
 
 	font.id = id;
 	font.size = size;
-	bool isValid = font.handle.loadFromFile(advValue.path_fonts + filename);
+	// Relative path
+	if (filename.substr(1, 1) != ":") {
+		isValid = font.handle.loadFromFile(advValue.path_fonts + filename);
+	}
+	// Absolute path
+	else {
+		isValid = font.handle.loadFromFile(filename);
+	}
 
 	if (isValid) {
 		this->__font.push_back(font);
