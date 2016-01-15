@@ -40,7 +40,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)Compiler\lib\</OutDir>
+    <OutDir>$(SolutionDir)</OutDir>
     <TargetName>advlib</TargetName>
     <IncludePath>$(ProjectDir)Compiler\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Compiler\lib;$(LibraryPath)</LibraryPath>
@@ -73,7 +73,7 @@
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
-      <PrecompiledHeaderFile>header.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,13 +83,13 @@
     </Link>
     <Lib>
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-audio-s.lib;sfml-network-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;openal32.lib;freetype.lib;jpeg.lib;flac.lib;vorbisfile.lib;ogg.lib;vorbis.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)\Compiler\lib\$(TargetFileName)</OutputFile>
+      <OutputFile>$(SolutionDir)$(TargetFileName)</OutputFile>
       <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="advlib.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="align.h" />
     <ClInclude Include="animation.h" />
@@ -97,6 +97,7 @@
     <ClInclude Include="bbool.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="core.h" />
+    <ClInclude Include="database.h" />
     <ClInclude Include="drawable.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="exception.h" />
@@ -104,7 +105,7 @@
     <ClInclude Include="advmath.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="other.h" />
-    <ClInclude Include="header.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="ui.h" />
@@ -113,6 +114,7 @@
   <ItemGroup>
     <ClCompile Include="animation_main.cpp" />
     <ClCompile Include="core_main.cpp" />
+    <ClCompile Include="database_main.cpp" />
     <ClCompile Include="drawable_main.cpp" />
     <ClCompile Include="event_default.cpp" />
     <ClCompile Include="event_main.cpp" />
@@ -122,7 +124,7 @@
     <ClCompile Include="input_main.cpp" />
     <ClCompile Include="advmath_main.cpp" />
     <ClCompile Include="mouse_main.cpp" />
-    <ClCompile Include="header_main.cpp">
+    <ClCompile Include="stdafx_main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>

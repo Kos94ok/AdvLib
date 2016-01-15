@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "header.h"
+#include "stdafx.h"
 
 using namespace std;
 

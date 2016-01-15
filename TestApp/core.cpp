@@ -1,10 +1,14 @@
 
 #include "stdafx.h"
 
+class animatedObject : public adv::cAnimatedDrawable
+{
+
+};
+
 void threadWindow(int id, adv::cArgs args)
 {
-	advCore.threadState[id] = STATE_UP;
-	sf::RenderWindow winHandle(sf::VideoMode(800, 600), "Text", 7U);
+	sf::RenderWindow winHandle(sf::VideoMode(800, 600), "Window", 7U);
 	sf::RenderTexture texHandle;
 	texHandle.create(800, 600);
 
@@ -23,16 +27,19 @@ void threadWindow(int id, adv::cArgs args)
 		winHandle.draw(spr);
 		winHandle.display();
 	}
-	advCore.threadState[id] = STATE_DOWN;
+	advCore.stopThread(id);
 }
 
 int main()
 {
 	advCore.init();
 
-	advUI.addFont("fontConsole", "C:/Windows/Fonts/consolas.ttf", 16);
+	advUI.addFont("fontConsole", "C:/Windows/Fonts/consola.ttf", 16);
 	adv::cUIWindow* wnd = advUI.addWindow("wndMain");
 	wnd->addLabel("label0", vec2f(0, 0), L"Test String", "fontConsole", color(255, 255, 255));
+
+	//animatedObject obj;
+
 	advCore.addThread(threadWindow, 0);
 
 	advCore.mainLoop();

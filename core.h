@@ -1,12 +1,14 @@
 
 #pragma once
 
-#include "header.h"
-#include "const.h"
-#include "other.h"
+#include "stdafx.h"
 #include "exception.h"
 #include "advmath.h"
+#include "align.h"
+#include "args.h"
 #include "bbool.h"
+#include "const.h"
+#include "other.h"
 
 #define STATE_UP				0			// Thread is working normally
 #define STATE_DOWN				1			// Thread is disabled
@@ -19,11 +21,10 @@ namespace adv
 	class cCore
 	{
 	private:
-		bool shutdownInitiated = false;
+		bool __shutdownInitiated = false;
+		vector<short> __threadState;
+		vector<thread> __threadPool;
 	public:
-		vector<short> threadState;
-		vector<thread> threadPool;
-
 		/*
 		// Initialize the core functions.
 		*/
@@ -49,6 +50,11 @@ namespace adv
 		// Check if the thread state is ok. If not, shutdown is required.
 		*/
 		bool isThreadGood(int id);
+		/*
+		// Mark the thread as shutdown.
+		Must be called before returning from the thread function.
+		*/
+		void stopThread(int id);
 		/*
 		// Start the core main cycle. The thread is then blocked until the advCore.exit() function is called.
 		Should only be executed from the main thread.

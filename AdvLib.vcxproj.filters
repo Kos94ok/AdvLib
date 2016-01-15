@@ -61,6 +61,9 @@
     <Filter Include="Library Code\API\Drawable\Animation">
       <UniqueIdentifier>{5a62122c-df46-4c3d-8d24-5752edd8a4be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library Code\API\Database">
+      <UniqueIdentifier>{dbff9f80-5463-4f74-9ab8-de8367f43922}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="advlib.h">
@@ -75,17 +78,11 @@
     <ClInclude Include="core.h">
       <Filter>Library Code\Systems\Core</Filter>
     </ClInclude>
-    <ClInclude Include="other.h">
-      <Filter>Library Code\Support</Filter>
-    </ClInclude>
     <ClInclude Include="drawable.h">
       <Filter>Library Code\API\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="texture.h">
       <Filter>Library Code\API\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="const.h">
-      <Filter>Library Code\Support</Filter>
     </ClInclude>
     <ClInclude Include="exception.h">
       <Filter>Library Code\Support\Exception</Filter>
@@ -99,26 +96,35 @@
     <ClInclude Include="vectox.h">
       <Filter>Library Code\API\Vectox</Filter>
     </ClInclude>
-    <ClInclude Include="align.h">
-      <Filter>Library Code\Support</Filter>
-    </ClInclude>
-    <ClInclude Include="bbool.h">
-      <Filter>Library Code\Support</Filter>
-    </ClInclude>
-    <ClInclude Include="args.h">
-      <Filter>Library Code\Support</Filter>
-    </ClInclude>
     <ClInclude Include="input.h">
       <Filter>Library Code\API\UI\Input</Filter>
     </ClInclude>
     <ClInclude Include="animation.h">
       <Filter>Library Code\API\Drawable\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="header.h">
-      <Filter>Precompiled Header</Filter>
-    </ClInclude>
     <ClInclude Include="advmath.h">
       <Filter>Library Code\Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled Header</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>Library Code\API\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="align.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="args.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="bbool.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="const.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="other.h">
+      <Filter>Library Code\Support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,11 +194,14 @@
     <ClCompile Include="animation_main.cpp">
       <Filter>Library Code\API\Drawable\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="header_main.cpp">
-      <Filter>Precompiled Header</Filter>
-    </ClCompile>
     <ClCompile Include="advmath_main.cpp">
       <Filter>Library Code\Support\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx_main.cpp">
+      <Filter>Precompiled Header</Filter>
+    </ClCompile>
+    <ClCompile Include="database_main.cpp">
+      <Filter>Library Code\API\Database</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
