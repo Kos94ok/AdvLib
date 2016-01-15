@@ -141,6 +141,9 @@
     <ClCompile Include="ui_util.cpp" />
     <ClCompile Include="vectox_main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="database.inl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

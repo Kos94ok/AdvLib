@@ -32,6 +32,7 @@ void adv::cExceptionMain::warning(int code, string value)
 	if (code == WARNING::BADUIMASK) { msg = L"Incorrect UI data mask: " + wval; }
 	else if (code == WARNING::BADQUERY) { msg = L"Incorrect database query: " + wval; }
 	else if (code == WARNING::DUPLISTENER) { msg = L"Duplicate event listener: " + wval; }
+	else if (code == WARNING::DBDESYNC) { msg = L"Database desync: " + wval; }
 
 #ifdef MODE_DEBUG
 	MessageBox(0, msg.c_str(), L"Warning", MB_ICONWARNING);

@@ -204,4 +204,9 @@
       <Filter>Library Code\API\Database</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="database.inl">
+      <Filter>Library Code\API\Database</Filter>
+    </None>
+  </ItemGroup>
 </Project>

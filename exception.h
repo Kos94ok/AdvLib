@@ -17,6 +17,7 @@ namespace adv
 		BADQUERY,
 		DUPLISTENER,
 		BADUIMASK,
+		DBDESYNC,
 	};
 
 	class cExceptionMain

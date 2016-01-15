@@ -39,3 +39,5 @@ namespace adv
 		}
 	};
 }
+
+#include "database.inl"

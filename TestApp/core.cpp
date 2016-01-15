@@ -30,6 +30,8 @@ void threadWindow(int id, adv::cArgs args)
 	advCore.stopThread(id);
 }
 
+adv::cDatabase<animatedObject> testDB;
+
 int main()
 {
 	advCore.init();
