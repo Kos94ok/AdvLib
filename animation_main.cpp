@@ -28,28 +28,29 @@ void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 	if (reset) {
 		__frame = 0;
 	}
+	setFrame(__frame);
 }
 
-void adv::cAnimatedDrawable::addFrame(int anim, int frame)
+void adv::cAnimatedDrawable::addFrame(int anim, int texture)
 {
-	__animData[anim].frameList.push_back(frame);
+	__animData[anim].frameList.push_back(texture);
 }
 
-void adv::cAnimatedDrawable::addFrame(int anim, string frame)
+void adv::cAnimatedDrawable::addFrame(int anim, string texture)
 {
-	return addFrame(anim, advTexture.add(frame));
+	return addFrame(anim, advTexture.add(texture));
 }
 
-void adv::cAnimatedDrawable::addAnimation(int anim, vector<int> frameList)
+void adv::cAnimatedDrawable::addAnimation(int anim, vector<int> textureList)
 {
-	for (int i = 0; i < (int)frameList.size(); i++) {
-		addFrame(anim, frameList[i]);
+	for (int i = 0; i < (int)textureList.size(); i++) {
+		addFrame(anim, textureList[i]);
 	}
 }
 
-void adv::cAnimatedDrawable::addAnimation(int anim, vector<string> frameList)
+void adv::cAnimatedDrawable::addAnimation(int anim, vector<string> textureList)
 {
-	for (int i = 0; i < (int)frameList.size(); i++) {
-		addFrame(anim, frameList[i]);
+	for (int i = 0; i < (int)textureList.size(); i++) {
+		addFrame(anim, textureList[i]);
 	}
 }

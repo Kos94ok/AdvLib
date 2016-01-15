@@ -17,8 +17,16 @@ namespace adv
 		string name = "";
 		vec2i posI;					// Can't be part of the condition
 		vec2f posF;					// Can't be part of the condition
-		int timer_tickTime;			// Can't be part of the condition
-		float timer_tickDelay;		// Can't be part of the condition
+		/*
+		// For timers: Theoretical tick time
+		Can't be part of the condition
+		*/
+		int timer_tickTime;
+		/*
+		// For timers: Practical tick time
+		Can't be part of the condition
+		*/
+		float timer_tickDelay;
 
 		cEventArgs() {}
 		cEventArgs(int id) { this->id = id; }

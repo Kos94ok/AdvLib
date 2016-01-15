@@ -4,11 +4,14 @@
 
 #define LIMIT_ANIMATIONS		64
 
-#define ANIM_IDLE				0
-#define ANIM_MOVE				1
-
 namespace adv
 {
+	enum ANIM
+	{
+		IDLE,
+		MOVE,
+	};
+
 	class cAnimationData
 	{
 	public:
