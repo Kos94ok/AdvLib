@@ -7,8 +7,6 @@ using namespace adv;
 
 void adv::threadUIMain(int id, cArgs args)
 {
-	advCore.threadState[id] = STATE_UP;
-
 	int oldTime = timeGetTime();
 	while (advCore.isThreadGood(id))
 	{
@@ -41,5 +39,5 @@ void adv::threadUIMain(int id, cArgs args)
 		}
 		Sleep(5);
 	}
-	advCore.threadState[id] = STATE_DOWN;
+	advCore.stopThread(id);
 }

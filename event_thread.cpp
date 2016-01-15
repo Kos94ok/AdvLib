@@ -4,7 +4,6 @@
 
 void adv::cEventMain::__threadMain(int id, cArgs args)
 {
-	advCore.threadState[id] = STATE_UP;
 	//cout << "Thread " << id << " is now up" << endl;
 	function<void(cEventArgs args)> queueFunc;
 	cEventArgs queueArgs;
@@ -33,5 +32,5 @@ void adv::cEventMain::__threadMain(int id, cArgs args)
 		}
 	} while (advCore.isThreadGood(id));
 	//cout << "Thread " << id << " is now down" << endl;
-	advCore.threadState[id] = STATE_DOWN;
+	advCore.stopThread(id);
 }

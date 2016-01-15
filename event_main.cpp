@@ -34,7 +34,7 @@ void adv::cEventMain::listen(int id, function<void(cEventArgs args)> handler, cE
 		if (listenerList[i].event.id == id && listenerList[i].event.family == family && checkMatch(listenerList[i].condition, cond)
 			&& !checkMatch(cond, cEventArgs()))
 		{
-			advException.crash(ERROR_DUPLISTENER, to_string(id) + " | " + to_string(family) + " | " + to_string(cond.id) + " | " + cond.name);
+			advException.warning(WARNING::DUPLISTENER, to_string(id) + " | " + to_string(family) + " | " + to_string(cond.id) + " | " + cond.name);
 			return;
 		}
 	}

@@ -40,7 +40,7 @@ adv::cUIWindow* adv::cUIParent::getWindow(string id)
 		cUIWindow* val = __childWindow[i].getWindow(id);
 		if (val != nullptr) { return val; }
 	}
-	if (__root) { advException.crash(CRASH_NOWINDOWFOUND, id); }
+	if (__root) { advException.crash(CRASH::BADUIWINDOWID, id); }
 	return nullptr;
 }
 

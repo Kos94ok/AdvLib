@@ -32,7 +32,7 @@ void adv::cUIWindow::addLabel(string id, vec2f pos, wstring text, string fontId,
 
 	// Check the font
 	if (advUI.getFontIndex(fontId) == MISSINGNO) {
-		advException.crash(CRASH_BADFONTID, fontId);
+		advException.crash(CRASH::BADFONTID, fontId);
 		return;
 	}
 	// Initialize the element
@@ -73,7 +73,7 @@ void adv::cUIWindow::addButton(string id, vec2f pos, vec2f size, string name, in
 void adv::cUIWindow::addButtonText(string id, wstring text, string fontId, color clr, int align)
 {
 	if (advUI.getFontIndex(fontId) == MISSINGNO) {
-		advException.crash(CRASH_BADFONTID, fontId);
+		advException.crash(CRASH::BADFONTID, fontId);
 		return;
 	}
 	setButtonTextString(id, text);

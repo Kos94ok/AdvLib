@@ -28,7 +28,7 @@ sf::Texture* adv::cTextureMain::getHandle(int id)
 {
 	if (id == MISSINGNO)
 	{
-		advException.crash(CRASH_MISSINGNO);
+		advException.crash(CRASH::BADINDEX);
 		return nullptr;
 	}
 	return &dataList[id].handle;

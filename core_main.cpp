@@ -48,7 +48,7 @@ void adv::cCore::addThread(function<void(int id, cArgs args)> target, cArgs args
 	__threadPool.push_back(thread(target, threadId, args));
 }
 
-void adv::cCore::shutThread(int id)
+void adv::cCore::stopThread(int id)
 {
 	__threadState[id] = STATE_DOWN;
 }

@@ -10,8 +10,6 @@ void adv::cTimerMain::__threadMain(int id, cArgs args)
 	int elapsedTime = 0;
 	int globalTimeNew = 0;
 	int globalTimeOld = timeGetTime();
-
-	advCore.threadState[id] = STATE_UP;
 	do
 	{
 		// Updating the time values
@@ -56,5 +54,5 @@ void adv::cTimerMain::__threadMain(int id, cArgs args)
 		}
 		Sleep(1);
 	} while (advCore.isThreadGood(id));
-	advCore.threadState[id] = STATE_DOWN;
+	advCore.stopThread(id);
 }

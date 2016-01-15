@@ -3,7 +3,6 @@
 
 #include "core.h"
 #include "drawable.h"
-#include "align.h"
 
 #define FND_NOFLAGS					0
 #define FND_EX_HIDDEN				1

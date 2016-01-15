@@ -14,7 +14,7 @@ void adv::cUIWindow::addBorder(string idMask, vec2f bPos, vec2f bSize, string te
 	int idAstPos = idMask.find("*");
 	int texAstPos = texMask.find("*");
 	if (idAstPos == string::npos || texAstPos == string::npos) {
-		advException.crash(ERROR_INCORRECTUIMASK, idMask + " | " + texMask);
+		advException.crash(WARNING::BADUIMASK, idMask + " | " + texMask);
 		return;
 	}
 	string idPref = idMask.substr(0, idAstPos);

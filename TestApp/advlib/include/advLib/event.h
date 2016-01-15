@@ -1,6 +1,5 @@
 
 #include "core.h"
-#include "args.h"
 
 #define FAMILY_GENERIC					1000
 #define FAMILY_INTERFACE				1001
@@ -31,6 +30,14 @@
 
 namespace adv
 {
+	/*
+	// 
+	*/
+	class cEventHandler
+	{
+
+	};
+
 	/*
 	// Event data class. Contains data about occured event.
 	*/

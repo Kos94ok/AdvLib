@@ -46,23 +46,23 @@
     <Filter Include="Library Code\API\Mouse">
       <UniqueIdentifier>{1d2b0ff8-13c1-496c-a24c-fc65cc62e94c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library Code\API\UI">
-      <UniqueIdentifier>{834da121-a5f5-4a5b-bbb2-446795b25fb4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library Code\Support\Math">
       <UniqueIdentifier>{80c5054c-54d3-4f00-950a-93d054a14af3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Library Code\API\Vectox">
       <UniqueIdentifier>{cd419abb-4988-4801-99ad-645233c95282}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library Code\API\UI\Input">
-      <UniqueIdentifier>{c62769c7-4a38-4a65-8f09-43a307cab963}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library Code\API\Drawable\Animation">
       <UniqueIdentifier>{5a62122c-df46-4c3d-8d24-5752edd8a4be}</UniqueIdentifier>
     </Filter>
     <Filter Include="Library Code\API\Database">
       <UniqueIdentifier>{dbff9f80-5463-4f74-9ab8-de8367f43922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems\UI">
+      <UniqueIdentifier>{834da121-a5f5-4a5b-bbb2-446795b25fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library Code\Systems\UI\Input">
+      <UniqueIdentifier>{c62769c7-4a38-4a65-8f09-43a307cab963}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,13 +91,13 @@
       <Filter>Library Code\API\Mouse</Filter>
     </ClInclude>
     <ClInclude Include="ui.h">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClInclude>
     <ClInclude Include="vectox.h">
       <Filter>Library Code\API\Vectox</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
-      <Filter>Library Code\API\UI\Input</Filter>
+      <Filter>Library Code\Systems\UI\Input</Filter>
     </ClInclude>
     <ClInclude Include="animation.h">
       <Filter>Library Code\API\Drawable\Animation</Filter>
@@ -162,34 +162,34 @@
       <Filter>Library Code\API\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="ui_main.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_font.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_paint.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_util.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="vectox_main.cpp">
       <Filter>Library Code\API\Vectox</Filter>
     </ClCompile>
     <ClCompile Include="ui_search.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_thread.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_element_small.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui_element_add.cpp">
-      <Filter>Library Code\API\UI</Filter>
+      <Filter>Library Code\Systems\UI</Filter>
     </ClCompile>
     <ClCompile Include="input_main.cpp">
-      <Filter>Library Code\API\UI\Input</Filter>
+      <Filter>Library Code\Systems\UI\Input</Filter>
     </ClCompile>
     <ClCompile Include="animation_main.cpp">
       <Filter>Library Code\API\Drawable\Animation</Filter>
