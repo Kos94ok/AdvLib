@@ -12,49 +12,42 @@ void adv::cEventMain::init()
 	for (int i = 0; i < advValue.count_eventHandlers; i++) { advCore.addThread(__threadMain, 0); }
 }
 
-void adv::cEventMain::add(int id, cEventArgs args, int family)
+void adv::cEventMain::add(int id, cEventArgs args)
 {
+	cEventListener ear;
 	latest.id = id;
-	latest.family = family;
 	// Check all the listeners
-	for (cEventListener ear : listenerList)
+	for (int i = 0; i < (int)listenerList.size(); i++)
+	//for (cEventListener ear : listenerList)
 	{
-		if (ear.event.id == id && ear.event.family == family && checkMatch(args, ear.condition))
+		ear = listenerList[i];
+		if (ear.event.id == id && // <--- Generic condition
+			(ear.timerCond.id == -1 || ear.timerCond.id == args.id) && (ear.timerCond.name == "" || ear.timerCond.name == args.name)) // <--- Timer condition
 		{
-			// If something is listening to new event, execute the event handlers - each in separate thread
+			// If something is listening to new event, execute the event handlers
 			handlerQueue.add(ear.handler, args);
 		}
 	}
 }
 
-void adv::cEventMain::listen(int id, function<void(cEventArgs args)> handler, cEventArgs cond, int family)
+void adv::cEventMain::listen(int id, function<void(cEventArgs args)> handler)
 {
-	// Check for duplicates
-	for (int i = 0; i < (int)listenerList.size(); i++) {
-		if (listenerList[i].event.id == id && listenerList[i].event.family == family && checkMatch(listenerList[i].condition, cond)
-			&& !checkMatch(cond, cEventArgs()))
-		{
-			advException.warning(WARNING::DUPLISTENER, to_string(id) + " | " + to_string(family) + " | " + to_string(cond.id) + " | " + cond.name);
-			return;
-		}
-	}
-	// Add new
 	cEventListener ear;
 	ear.event.id = id;
-	ear.event.family = family;
 	ear.handler = handler;
-	ear.condition = cond;
 	listenerList.push_back(ear);
 }
 
-void adv::cEventMain::waitFor(int id, int family)
+void adv::cEventMain::listenForTimer(cTimerArgs timer, function <void(cEventArgs args)> handler)
 {
-	while (latest.id != id || latest.family != family) { Sleep(1); }
+	cEventListener ear;
+	ear.event.id = EVENT_TIMER_TICK;
+	ear.handler = handler;
+	ear.timerCond = timer;
+	listenerList.push_back(ear);
 }
 
-bool adv::cEventMain::checkMatch(cEventArgs args, cEventArgs cond)
+void adv::cEventMain::waitFor(int id)
 {
-	if (cond.id != -1 && args.id != cond.id) { return false; }
-	if (cond.name != "" && args.name != cond.name) { return false; }
-	return true;
+	while (latest.id != id) { Sleep(1); }
 }

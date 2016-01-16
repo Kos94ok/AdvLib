@@ -1,10 +1,6 @@
 
 #include "core.h"
 
-#define FAMILY_GENERIC					1000
-#define FAMILY_INTERFACE				1001
-#define FAMILY_POST						1002
-
 // 1000 - L0 events
 #define EVENT_INIT						1000
 #define EVENT_TEST						1001
@@ -31,21 +27,12 @@
 namespace adv
 {
 	/*
-	// 
-	*/
-	class cEventHandler
-	{
-
-	};
-
-	/*
 	// Event data class. Contains data about occured event.
 	*/
 	class cEvent
 	{
 	public:
 		int id;
-		int family;
 	};
 
 	/*
@@ -56,8 +43,9 @@ namespace adv
 	{
 	public:
 		cEvent event;
-		cEventArgs condition;
 		function<void(cEventArgs args)> handler;
+
+		cTimerArgs timerCond;
 	};
 
 	/*
@@ -88,7 +76,6 @@ namespace adv
 		cHandlerQueue handlerQueue;
 
 		cEvent getLastEvent() { return latest; }
-		bool checkMatch(cEventArgs args, cEventArgs cond);
 	public:
 		/*
 		// Initialize the event system. This function must be called during the main initialization.
@@ -98,19 +85,23 @@ namespace adv
 		// Create new event. If there are any eligible listeners, handlers will be executed as soon
 		as there are free resources available.
 		*/
-		void add(int id, cEventArgs args = -1, int family = FAMILY_GENERIC);
+		void add(int id, cEventArgs args = -1);
 		/*
 		// Create a new event listener. Handler function will be executed as soon as there is a new
-		event that matches 'id' and 'family', but only if the arguments of the event match the given
-		conditions. Listener can't be removed from the list.
-		Use 'id = -1' to match any event with specific family.
+		event that matches 'id' field. Listener can't be removed from the list. This function is intended
+		to be used with global events that require similar reaction every time.
 		*/
-		void listen(int id, function<void(cEventArgs args)> handler, cEventArgs cond = -1, int family = FAMILY_GENERIC);
+		void listen(int id, function<void(cEventArgs args)> handler);
+		/*
+		// Create a new event listener. Handler function will be executed as soon as there is a new
+		EVENT_TIMER_TICK event with matching timer IDs. Listener can't be removed from the list. This
+		function is intended to be used with global timers that require similar reaction every time.
+		*/
+		void listenForTimer(cTimerArgs timer, function <void(cEventArgs args)> handler);
 		/*
 		// Blocks the thread until specific event occures.
-		Use 'id = -1' to match any event with specific family.
 		*/
-		void waitFor(int id, int family = FAMILY_GENERIC);
+		void waitFor(int id);
 		/*
 		// Handles generic SFML events.
 		*/

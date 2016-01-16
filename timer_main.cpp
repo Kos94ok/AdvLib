@@ -7,46 +7,82 @@ adv::cTimerMain advTimer;
 
 void adv::cTimerMain::init()
 {
-	if (initialized) { return; }
-	initialized = true;
+	if (__initialized) { return; }
+	__initialized = true;
 
 	advCore.addThread(__threadMain, 0);
 
-	start(0.01f, TIMER_10MS, true);
-	start(0.05f, TIMER_50MS, true);
-	start(0.10f, TIMER_100MS, true);
-	start(0.30f, TIMER_300MS, true);
-	start(0.50f, TIMER_500MS, true);
-	start(1.00f, TIMER_1000MS, true);
-	start(2.00f, TIMER_2000MS, true);
-	start(5.00f, TIMER_5000MS, true);
+	start(0.01f, TIMER_10MS);
+	start(0.05f, TIMER_50MS);
+	start(0.10f, TIMER_100MS);
+	start(0.30f, TIMER_300MS);
+	start(0.50f, TIMER_500MS);
+	start(1.00f, TIMER_1000MS);
+	start(2.00f, TIMER_2000MS);
+	start(5.00f, TIMER_5000MS);
 }
 
-void adv::cTimerMain::start(float time, cTimerArgs args, bool repeat)
+void adv::cTimerMain::start(float time, cTimerArgs args)
 {
-	access.lock();
+	__access.lock();
+
+	for (int i = 0; i < (int)__timerList.size(); i++)
+	{
+		if ((args.id != MISSINGNO && args.id == __timerList[i].id) || (args.name != "" && args.name == __timerList[i].name))
+		{
+			advException.warning(WARNING::DUPTIMER, to_string(args.id) + " | " + args.name);
+			return;
+		}
+	}
 
 	cTimer entry;
 	entry.id = args.id;
 	entry.name = args.name;
-	entry.repeat = repeat;
 	entry.timeCur = time;
 	entry.timeMax = time;
 
-	timerList.push_back(entry);
-	advEvent.add(EVENT_TIMER_START, cEventArgs(args.id, args.name), FAMILY_GENERIC);
+	__timerList.push_back(entry);
+	advEvent.add(EVENT_TIMER_START, cEventArgs(args.id, args.name));
 
-	access.unlock();
+	__access.unlock();
 }
 
-void adv::cTimerMain::__removeTimer(int number)
+void adv::cTimerMain::startFor(float time, function<void(cEventArgs args)> entryFunc, int ttl, cEventArgs args)
 {
-	access.lock();
+	__access.lock();
 
-	for (int i = number; i < __getTimerCount() - 1; i++) {
-		timerList[i] = timerList[i + 1];
+	cTimerDynamic entry;
+	entry.ttl = ttl;
+	entry.timeCur = time;
+	entry.timeMax = time;
+	entry.tickArgs = args;
+	entry.tickHandler = entryFunc;
+
+	__timerDynamicList.push_back(entry);
+
+	__access.unlock();
+}
+
+void adv::cTimerMain::_removeTimer(int number)
+{
+	__access.lock();
+
+	for (int i = number; i < _getTimerCount() - 1; i++) {
+		__timerList[i] = __timerList[i + 1];
 	}
-	timerList.pop_back();
+	__timerList.pop_back();
 
-	access.unlock();
+	__access.unlock();
+}
+
+void adv::cTimerMain::_removeTimerDynamic(int number)
+{
+	__access.lock();
+
+	for (int i = number; i < _getTimerDynamicCount() - 1; i++) {
+		__timerDynamicList[i] = __timerDynamicList[i + 1];
+	}
+	__timerDynamicList.pop_back();
+
+	__access.unlock();
 }

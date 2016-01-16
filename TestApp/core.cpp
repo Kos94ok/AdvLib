@@ -4,6 +4,7 @@
 class animatedObject : public adv::cAnimatedDrawable
 {
 public:
+	string id;
 	float frameDelay = 0;
 };
 
@@ -44,25 +45,41 @@ void threadWindow(int id, adv::cArgs args)
 void timerTick(adv::cEventArgs args)
 {
 	mainvecLock.lock();
-	for (int i = 0; i < mainvec.size(); i++)
+	for (int i = 0; i < (int)mainvec.size(); i++)
 	{
-		mainvec[i].frameDelay += args.timer_tickDelay;
-		if (mainvec[i].frameDelay >= 1.50f) {
-			mainvec[i].setFrame();
-			mainvec[i].frameDelay = 0.00f;
+		if (mainvec[i].id == args.name)
+		{
+			mainvec[i].frameDelay += args.timer_tickDelay;
+			if (mainvec[i].frameDelay >= 0.25f) {
+				mainvec[i].setFrame();
+				mainvec[i].frameDelay = 0.00f;
+			}
 		}
 	}
 	mainvecLock.unlock();
+}
 
-	advTimer.start(0.10f, "timer_test");
+void timerTickEver(adv::cEventArgs args)
+{
+	mainvecLock.lock();
+	for (int i = 0; i < (int)mainvec.size(); i++)
+	{
+		if (mainvec[i].id == "a")
+		{
+			mainvec[i].frameDelay += args.timer_tickDelay;
+			if (mainvec[i].frameDelay >= 0.25f) {
+				mainvec[i].setFrame();
+				mainvec[i].frameDelay = 0.00f;
+			}
+		}
+	}
+	mainvecLock.unlock();
 }
 
 int main()
 {
 	advCore.init();
-	advTimer.start(1.50f, "timer_test");
-	advEvent.listen(EVENT_TIMER_END, timerTick, "timer_test");
-
+	
 	advUI.addFont("fontConsole", "C:/Windows/Fonts/consola.ttf", 16);
 	adv::cUIWindow* wnd = advUI.addWindow("wndMain");
 	wnd->addLabel("label0", vec2f(0, 0), L"Test String", "fontConsole", color(255, 255, 255));
@@ -77,13 +94,16 @@ int main()
 
 	obj = testDB.getCopy("test");
 	obj.move(vec2f(10, 10));
+	obj.id = "a";
 	mainvec.push_back(obj);
 	obj = testDB.getCopy("test");
-	obj.move(vec2f(30, 10));
+	obj.move(vec2f(40, 10));
+	obj.id = "b";
 	mainvec.push_back(obj);
-	obj = testDB.getCopy("tests");
-	obj.move(vec2f(50, 10));
-	mainvec.push_back(obj);
+
+	advTimer.start(0.25f, "timer");
+	advEvent.listenForTimer("timer", timerTickEver);
+	advTimer.startFor(0.25f, timerTick, 8, "b");
 
 	advCore.addThread(threadWindow, 0);
 

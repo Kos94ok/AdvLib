@@ -13,12 +13,43 @@ namespace adv
 	class cEventArgs
 	{
 	public:
+		/*
+		// For mouse click events: Mouse button id
+		// For UI button events: Mouse button id
+		// For keyboard events: Key id
+		// For input wrong events: Wrong character id
+		// For timer events: Timer id (number)
+		*/
 		int id = -1;
+		/*
+		// For UI button events: Button name
+		// For input events: Current input id
+		// For timer events: Timer id (string)
+		*/
 		string name = "";
-		vec2i posI;					// Can't be part of the condition
-		vec2f posF;					// Can't be part of the condition
-		int timer_tickTime;			// Can't be part of the condition
-		float timer_tickDelay;		// Can't be part of the condition
+		/*
+		// For mouse events: Mouse position
+		*/
+		vec2i posI;
+		/*
+		// For mouse events: Mouse position
+		*/
+		vec2f posF;
+		/*
+		// For timers: Expected tick time. No override.
+		*/
+		int timer_tickTime;
+		/*
+		// For timers: Real tick time. No override.
+		*/
+		float timer_tickDelay;
+
+		// Any user-defined data.
+		int user_int[8];
+		// Any user-defined data.
+		float user_float[8];
+		// Any user-defined data.
+		string user_string[8];
 
 		cEventArgs() {}
 		cEventArgs(int id) { this->id = id; }
@@ -28,5 +59,16 @@ namespace adv
 		cEventArgs(int id, string name) { this->id = id; this->name = name; }
 		cEventArgs(int id, vec2i posI) { this->id = id; this->posI = posI; }
 		cEventArgs(int id, vec2f posF) { this->id = id; this->posF = posF; }
+	};
+
+	class cTimerArgs
+	{
+	public:
+		int id = -1;
+		string name = "";
+
+		cTimerArgs() {}
+		cTimerArgs(int id) { this->id = id; }
+		cTimerArgs(char* name) { this->name = name; }
 	};
 }

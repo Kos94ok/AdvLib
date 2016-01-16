@@ -23,12 +23,12 @@ void adv::cCore::init()
 
 void adv::cCore::postInit()
 {
-	advEvent.add(EVENT_INIT, -1, FAMILY_POST);
+	advEvent.add(EVENT_INIT, -1);
 }
 
 void adv::cCore::shut()
 {
-	advEvent.add(EVENT_PRESHUT, -1, FAMILY_POST);
+	advEvent.add(EVENT_PRESHUT, -1);
 	int threadCount = __threadPool.size();
 	// Checking all the threads in reverse order
 	for (int i = threadCount - 1; i >= 0; i--) {

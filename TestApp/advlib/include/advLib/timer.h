@@ -12,17 +12,6 @@
 
 namespace adv
 {
-	class cTimerArgs
-	{
-	public:
-		int id = -1;
-		string name = "";
-
-		cTimerArgs() {}
-		cTimerArgs(int id) { this->id = id; }
-		cTimerArgs(char* name) { this->name = name; }
-	};
-
 	/*
 	// Timer data class.
 	Internal use only.
@@ -30,12 +19,23 @@ namespace adv
 	class cTimer
 	{
 	public:
-		int id = -1;
+		int id = MISSINGNO;
 		string name = "";
-		bool repeat = false;
+		int tickTime = 0;
 		float timeCur = 0.00f;
 		float timeMax = 0.00f;
+		cEventArgs tickArgs;
+	};
+
+	class cTimerDynamic
+	{
+	public:
+		int ttl = 1;
 		int tickTime = 0;
+		float timeCur = 0.00f;
+		float timeMax = 0.00f;
+		cEventArgs tickArgs;
+		function<void(cEventArgs args)> tickHandler;
 	};
 
 	/*
@@ -44,16 +44,33 @@ namespace adv
 	class cTimerMain
 	{
 	private:
-		sf::Mutex access;
-		bool initialized = false;
-		vector<cTimer> timerList;
+		sf::Mutex __access;
+		bool __initialized = false;
+		vector<cTimer> __timerList;
+		vector<cTimerDynamic> __timerDynamicList;
 	public:
+		/*
+		// Initialize the system. Must be called before using any timers.
+		*/
 		void init();
-		void start(float time, cTimerArgs args, bool repeat = false);
+		/*
+		// Start a static timer. This timer can not be destroyed and only one instance is allowed. Use advEvent.listenForTimer(...).
+		This timer is intended to be used as a global constant timer, responsible for main logic.
+		*/
+		void start(float time, cTimerArgs args);
+		/*
+		// Start a dynamic timer. This timer expires when TTL == 0. Every tick removes one TTL token.
+		This timer is intended to be used for characters' abilities or other similar kind of temporary effects' logic.
+		'args' field will be given to the event handler as is.
+		*/
+		void startFor(float time, function<void(cEventArgs args)> entryFunc, int ttl = 1, cEventArgs args = -1);
 
-		void __removeTimer(int number);
-		int __getTimerCount() { return timerList.size(); }
-		cTimer* __getTimerHandle(int number) { return &timerList[number]; }
+		void _removeTimer(int number);
+		void _removeTimerDynamic(int number);
+		int _getTimerCount() { return __timerList.size(); }
+		int _getTimerDynamicCount() { return __timerDynamicList.size(); }
+		cTimer* _getTimerHandle(int number) { return &__timerList[number]; }
+		cTimerDynamic* _getTimerDynamicHandle(int number) { return &__timerDynamicList[number]; }
 
 		/*
 		// Internal use only.

@@ -12,7 +12,7 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	*/
 	if (eventPoll.type == sf::Event::MouseButtonPressed) {
 		// Creating L0 event
-		add(EVENT_MOUSE_PRESS, cEventArgs(eventPoll.mouseButton.button, sf::Mouse::getPosition(*winHandle)), FAMILY_GENERIC);
+		add(EVENT_MOUSE_PRESS, cEventArgs(eventPoll.mouseButton.button, sf::Mouse::getPosition(*winHandle)));
 		// UI buttons - L1 event
 		elements = advUI.findByPoint(vec2f((float)eventPoll.mouseButton.x, (float)eventPoll.mouseButton.y), TYPE_BUTTON, FND_EX_HIDDEN);
 		// Button press
@@ -32,7 +32,7 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	*/
 	else if (eventPoll.type == sf::Event::MouseButtonReleased) {
 		// Creating L0 event
-		add(EVENT_MOUSE_RELEASE, cEventArgs(eventPoll.mouseButton.button, sf::Mouse::getPosition(*winHandle)), FAMILY_GENERIC);
+		add(EVENT_MOUSE_RELEASE, cEventArgs(eventPoll.mouseButton.button, sf::Mouse::getPosition(*winHandle)));
 		// UI buttons - L1 event
 		if ((int)advUI.__pressedUIButtons.size() > 0) {
 			// Button release
@@ -52,7 +52,7 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	else if (eventPoll.type == sf::Event::MouseMoved) {
 		vec2i mousePos = sf::Mouse::getPosition(*winHandle);
 		// L0 event
-		add(EVENT_MOUSE_MOVE, cEventArgs(-1, mousePos), FAMILY_GENERIC);
+		add(EVENT_MOUSE_MOVE, cEventArgs(-1, mousePos));
 		// UI buttons - L1 event
 		// Find new buttons
 		elements = advUI.findByPoint(vec2f((float)mousePos.x, (float)mousePos.y), TYPE_BUTTON);
@@ -81,11 +81,11 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	*/
 	else if (eventPoll.type == sf::Event::KeyPressed) {
 		// L0 event
-		add(EVENT_KEY_PRESS, cEventArgs(eventPoll.key.code), FAMILY_GENERIC);
+		add(EVENT_KEY_PRESS, cEventArgs(eventPoll.key.code));
 		// Special input characters - L1 event
 		if (advInput.isEnabled()) {
 			bool val = advInput.addSpec(eventPoll.key.code);
-			if (val) { add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId()), FAMILY_GENERIC); } 
+			if (val) { add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId())); } 
 		}
 	}
 	/*
@@ -93,7 +93,7 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 	*/
 	else if (eventPoll.type == sf::Event::KeyReleased) {
 		// L0 event
-		add(EVENT_KEY_RELEASE, cEventArgs(eventPoll.key.code), FAMILY_GENERIC);
+		add(EVENT_KEY_RELEASE, cEventArgs(eventPoll.key.code));
 	}
 	/*
 	// Text input
@@ -102,10 +102,10 @@ void adv::cEventMain::handle(sf::Event eventPoll, sf::RenderWindow* winHandle)
 		// Text input - L0 event
 		bool val = advInput.add(eventPoll.text.unicode);
 		if (val) {
-			add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId()), FAMILY_GENERIC);
+			add(EVENT_INPUT_UPDATE, cEventArgs(advInput.getId()));
 		}
 		else if (advInput.isEnabled()) {
-			add(EVENT_INPUT_WRONG, cEventArgs(eventPoll.text.unicode, advInput.getId()), FAMILY_GENERIC);
+			add(EVENT_INPUT_WRONG, cEventArgs(eventPoll.text.unicode, advInput.getId()));
 		}
 	}
 	/*

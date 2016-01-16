@@ -16,6 +16,7 @@ namespace adv
 	{
 		BADQUERY,
 		DUPLISTENER,
+		DUPTIMER,
 		BADUIMASK,
 		DBDESYNC,
 	};

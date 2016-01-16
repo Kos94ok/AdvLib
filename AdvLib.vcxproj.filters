@@ -69,62 +69,62 @@
     <ClInclude Include="advlib.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>Library Code\Systems\Timer Subsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="event.h">
-      <Filter>Library Code\Systems\Event Subsystem</Filter>
-    </ClInclude>
-    <ClInclude Include="core.h">
-      <Filter>Library Code\Systems\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="drawable.h">
-      <Filter>Library Code\API\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Library Code\API\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="exception.h">
-      <Filter>Library Code\Support\Exception</Filter>
-    </ClInclude>
-    <ClInclude Include="mouse.h">
-      <Filter>Library Code\API\Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="ui.h">
-      <Filter>Library Code\Systems\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="vectox.h">
-      <Filter>Library Code\API\Vectox</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>Library Code\Systems\UI\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>Library Code\API\Drawable\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="advmath.h">
-      <Filter>Library Code\Support\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Precompiled Header</Filter>
-    </ClInclude>
-    <ClInclude Include="database.h">
+    <ClInclude Include="include\advLib\database.h">
       <Filter>Library Code\API\Database</Filter>
     </ClInclude>
-    <ClInclude Include="align.h">
+    <ClInclude Include="include\advLib\animation.h">
+      <Filter>Library Code\API\Drawable\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\drawable.h">
+      <Filter>Library Code\API\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\mouse.h">
+      <Filter>Library Code\API\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\texture.h">
+      <Filter>Library Code\API\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\vectox.h">
+      <Filter>Library Code\API\Vectox</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\exception.h">
+      <Filter>Library Code\Support\Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\advmath.h">
+      <Filter>Library Code\Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\align.h">
       <Filter>Library Code\Support</Filter>
     </ClInclude>
-    <ClInclude Include="args.h">
+    <ClInclude Include="include\advLib\args.h">
       <Filter>Library Code\Support</Filter>
     </ClInclude>
-    <ClInclude Include="bbool.h">
+    <ClInclude Include="include\advLib\bbool.h">
       <Filter>Library Code\Support</Filter>
     </ClInclude>
-    <ClInclude Include="const.h">
+    <ClInclude Include="include\advLib\other.h">
       <Filter>Library Code\Support</Filter>
     </ClInclude>
-    <ClInclude Include="other.h">
+    <ClInclude Include="include\advLib\const.h">
       <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\core.h">
+      <Filter>Library Code\Systems\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\event.h">
+      <Filter>Library Code\Systems\Event Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\timer.h">
+      <Filter>Library Code\Systems\Timer Subsystem</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\input.h">
+      <Filter>Library Code\Systems\UI\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\ui.h">
+      <Filter>Library Code\Systems\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\stdafx.h">
+      <Filter>Precompiled Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +205,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="database.inl">
+    <None Include="include\advLib\database.inl">
       <Filter>Library Code\API\Database</Filter>
     </None>
   </ItemGroup>

@@ -40,7 +40,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)</OutDir>
+    <OutDir>$(SolutionDir)lib\</OutDir>
     <TargetName>advlib</TargetName>
     <IncludePath>$(ProjectDir)Compiler\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)Compiler\lib;$(LibraryPath)</LibraryPath>
@@ -74,6 +74,8 @@
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\advLib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,33 +85,31 @@
     </Link>
     <Lib>
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-audio-s.lib;sfml-network-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;openal32.lib;freetype.lib;jpeg.lib;flac.lib;vorbisfile.lib;ogg.lib;vorbis.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(SolutionDir)$(TargetFileName)</OutputFile>
+      <OutputFile>$(SolutionDir)lib\$(TargetFileName)</OutputFile>
       <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="advlib.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="align.h" />
-    <ClInclude Include="animation.h" />
-    <ClInclude Include="args.h" />
-    <ClInclude Include="bbool.h" />
-    <ClInclude Include="const.h" />
-    <ClInclude Include="core.h" />
-    <ClInclude Include="database.h" />
-    <ClInclude Include="drawable.h" />
-    <ClInclude Include="event.h" />
-    <ClInclude Include="exception.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="advmath.h" />
-    <ClInclude Include="mouse.h" />
-    <ClInclude Include="other.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="timer.h" />
-    <ClInclude Include="ui.h" />
-    <ClInclude Include="vectox.h" />
+    <ClInclude Include="advlib.h" />
+    <ClInclude Include="include\advLib\advmath.h" />
+    <ClInclude Include="include\advLib\align.h" />
+    <ClInclude Include="include\advLib\animation.h" />
+    <ClInclude Include="include\advLib\args.h" />
+    <ClInclude Include="include\advLib\bbool.h" />
+    <ClInclude Include="include\advLib\const.h" />
+    <ClInclude Include="include\advLib\core.h" />
+    <ClInclude Include="include\advLib\database.h" />
+    <ClInclude Include="include\advLib\drawable.h" />
+    <ClInclude Include="include\advLib\event.h" />
+    <ClInclude Include="include\advLib\exception.h" />
+    <ClInclude Include="include\advLib\input.h" />
+    <ClInclude Include="include\advLib\mouse.h" />
+    <ClInclude Include="include\advLib\other.h" />
+    <ClInclude Include="include\advLib\stdafx.h" />
+    <ClInclude Include="include\advLib\texture.h" />
+    <ClInclude Include="include\advLib\timer.h" />
+    <ClInclude Include="include\advLib\ui.h" />
+    <ClInclude Include="include\advLib\vectox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation_main.cpp" />
@@ -142,7 +142,7 @@
     <ClCompile Include="vectox_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="database.inl" />
+    <None Include="include\advLib\database.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
