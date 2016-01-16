@@ -76,6 +76,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(SolutionDir)include\advLib\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -88,9 +89,12 @@
       <OutputFile>$(SolutionDir)lib\$(TargetFileName)</OutputFile>
       <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="advlib.h" />
+    <ClInclude Include="include\advlib.h" />
     <ClInclude Include="include\advLib\advmath.h" />
     <ClInclude Include="include\advLib\align.h" />
     <ClInclude Include="include\advLib\animation.h" />

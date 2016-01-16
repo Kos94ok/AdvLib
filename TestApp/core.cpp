@@ -1,16 +1,40 @@
 
 #include "stdafx.h"
 
-class animatedObject : public adv::cAnimatedDrawable
+//====================================================================================
+// Header
+//====================================================================================
+class cUnit : public adv::cAnimatedDrawable
 {
 public:
-	string id;
-	float frameDelay = 0;
+	string type;
+	float vertAccel = 0.f;
 };
 
-adv::cDatabase<animatedObject> testDB;
-sf::Mutex mainvecLock;
-vector<animatedObject> mainvec;
+class cScene
+{
+public:
+	bool visible = false;
+
+	vector<cUnit> unitList;
+	sf::Mutex unitListAccess;
+
+	void paint(sf::RenderTexture* texHandle, sf::Transform matrix = sf::Transform())
+	{
+		unitListAccess.lock();
+		for (int i = 0; i < (int)unitList.size(); i++)
+		{
+			unitList[i].paint(texHandle, matrix);
+		}
+		unitListAccess.unlock();
+	}
+};
+
+//====================================================================================
+// Source code
+//====================================================================================
+cScene testScene;
+adv::cDatabase<cUnit> unitDB;
 
 void threadWindow(int id, adv::cArgs args)
 {
@@ -25,13 +49,8 @@ void threadWindow(int id, adv::cArgs args)
 		}
 
 		texHandle.clear(color(100, 100, 100));
+		testScene.paint(&texHandle);
 		advUI.paint(&texHandle);
-		mainvecLock.lock();
-		for (int i = 0; i < (int)mainvec.size(); i++)
-		{
-			mainvec[i].paint(&texHandle);
-		}
-		mainvecLock.unlock();
 		texHandle.display();
 
 		sf::Sprite spr;
@@ -42,38 +61,39 @@ void threadWindow(int id, adv::cArgs args)
 	advCore.stopThread(id);
 }
 
-void timerTick(adv::cEventArgs args)
+void timerMovement(adv::cEventArgs args)
 {
-	mainvecLock.lock();
-	for (int i = 0; i < (int)mainvec.size(); i++)
-	{
-		if (mainvec[i].id == args.name)
-		{
-			mainvec[i].frameDelay += args.timer_tickDelay;
-			if (mainvec[i].frameDelay >= 0.25f) {
-				mainvec[i].setFrame();
-				mainvec[i].frameDelay = 0.00f;
-			}
-		}
+	//float timemod = args.timer_tickDelay * (float)args.timer_tickTime;
+	float timemod = 0.01f;
+
+	float speedX = 100.00f * timemod;
+	float accY = 10.f * timemod;
+	cUnit* hero = &testScene.unitList[0];
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		hero->move(vec2f(-speedX, 0.f));
 	}
-	mainvecLock.unlock();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		hero->move(vec2f(speedX, 0.f));
+	}
+
+	if (hero->pos().y < 590 - hero->size().y + hero->center().y || hero->vertAccel < 0.00f) {
+		hero->move(vec2f(0.f, hero->vertAccel));
+		hero->vertAccel += accY;
+	}
+	else {
+		hero->vertAccel = 0.00f;
+	}
 }
 
-void timerTickEver(adv::cEventArgs args)
+void heroJump(adv::cEventArgs args)
 {
-	mainvecLock.lock();
-	for (int i = 0; i < (int)mainvec.size(); i++)
+	if (args.id != sf::Keyboard::W) { return; }
+
+	cUnit* hero = &testScene.unitList[0];
+	if (hero->pos().y >= 590 - hero->size().y + hero->center().y)
 	{
-		if (mainvec[i].id == "a")
-		{
-			mainvec[i].frameDelay += args.timer_tickDelay;
-			if (mainvec[i].frameDelay >= 0.25f) {
-				mainvec[i].setFrame();
-				mainvec[i].frameDelay = 0.00f;
-			}
-		}
+		hero->vertAccel = -10.00f;
 	}
-	mainvecLock.unlock();
 }
 
 int main()
@@ -81,30 +101,45 @@ int main()
 	advCore.init();
 	
 	advUI.addFont("fontConsole", "C:/Windows/Fonts/consola.ttf", 16);
-	adv::cUIWindow* wnd = advUI.addWindow("wndMain");
-	wnd->addLabel("label0", vec2f(0, 0), L"Test String", "fontConsole", color(255, 255, 255));
+	//adv::cUIWindow* wnd = advUI.addWindow("wndMain");
+	//wnd->addLabel("label0", vec2f(0, 0), L"Test String", "fontConsole", color(255, 255, 255));
 
-	animatedObject obj;
-	obj.moveto(vec2f(10, 10));
-	obj.resize(vec2f(24, 24));
-	obj.addFrame(adv::ANIM::IDLE, "ui_icon_close_white.png");
-	obj.addFrame(adv::ANIM::IDLE, "ui_icon_close_orange.png");
-	obj.setAnimation(adv::ANIM::IDLE);
-	testDB.addObject("test", obj);
+	// Pushing object to the database
+	cUnit db;
+	db.resize(vec2f(32, 32));
+	db.centralize(vec2f(16, 16));
+	db.addFrame(adv::ANIM::IDLE, "asteroid.png");
+	db.setAnimation(adv::ANIM::IDLE);
+	unitDB.addObject("hero", db);
 
-	obj = testDB.getCopy("test");
-	obj.move(vec2f(10, 10));
-	obj.id = "a";
-	mainvec.push_back(obj);
-	obj = testDB.getCopy("test");
-	obj.move(vec2f(40, 10));
-	obj.id = "b";
-	mainvec.push_back(obj);
+	db = cUnit();
+	db.resize(vec2f(128, 30));
+	db.centralize(vec2f(64, 15));
+	db.addFrame(adv::ANIM::IDLE, "ui_btn.png");
+	db.setAnimation(adv::ANIM::IDLE);
+	unitDB.addObject("land", db);
 
-	advTimer.start(0.25f, "timer");
-	advEvent.listenForTimer("timer", timerTickEver);
-	advTimer.startFor(0.25f, timerTick, 8, "b");
+	// Creating test scene
+	db = unitDB.getCopy("hero");
+	db.moveto(vec2f(0, 0));
+	testScene.unitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(64, 595));
+	testScene.unitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(128, 595));
+	testScene.unitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(192, 595));
+	testScene.unitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(256, 595));
+	testScene.unitList.push_back(db);
 
+	// Creating logic timers
+	advEvent.listenForTimer(TIMER_10MS, timerMovement);
+	advEvent.listen(EVENT_KEY_PRESS, heroJump);
+	
 	advCore.addThread(threadWindow, 0);
 
 	advCore.mainLoop();

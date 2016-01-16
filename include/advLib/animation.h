@@ -38,5 +38,6 @@ namespace adv
 		void addFrame(int anim, string texture);
 		void addAnimation(int anim, vector<int> textureList);
 		void addAnimation(int anim, vector<string> textureList);
+		void dropAnimation(int anim);
 	};
 }

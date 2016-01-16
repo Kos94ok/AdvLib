@@ -16,7 +16,7 @@ void adv::cAnimatedDrawable::setFrame(int frame)
 	else {
 		__frame = frame % (int)__animData[__animation].frameList.size();
 	}
-	texturize(__frame);
+	texturize(__animData[__animation].frameList[__frame]);
 }
 
 void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
@@ -53,4 +53,9 @@ void adv::cAnimatedDrawable::addAnimation(int anim, vector<string> textureList)
 	for (int i = 0; i < (int)textureList.size(); i++) {
 		addFrame(anim, textureList[i]);
 	}
+}
+
+void adv::cAnimatedDrawable::dropAnimation(int anim)
+{
+	__animData[anim].frameList.clear();
 }

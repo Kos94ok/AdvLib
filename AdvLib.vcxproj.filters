@@ -66,9 +66,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="advlib.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="include\advLib\database.h">
       <Filter>Library Code\API\Database</Filter>
     </ClInclude>
@@ -125,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="include\advLib\stdafx.h">
       <Filter>Precompiled Header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advlib.h">
+      <Filter>Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
