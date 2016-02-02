@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "game.h"
 #include "window.h"
+#include "camera.h"
 
 //====================================================================================
 // Source code
@@ -13,19 +14,26 @@ void threadWindow(int id, adv::cArgs args)
 {
 	sf::RenderWindow winHandle(sf::VideoMode(800, 600), "Window", 7U);
 	winHandle.setKeyRepeatEnabled(false);
+	//winHandle.setVerticalSyncEnabled(true);
 	sf::RenderTexture texHandle;
 	texHandle.create(800, 600);
 
-	while (advCore.isThreadGood(id)) {
+	sf::Transform mainMatrix;
+	while (advCore.isThreadGood(id))
+	{
 		sf::Event eventPoll;
 		while (winHandle.pollEvent(eventPoll)) {
 			advEvent.handle(eventPoll, &winHandle);
 		}
-
+		mainMatrix = sf::Transform::Identity;
+		mainMatrix.translate(vec2f(400, 0));
+		//Camera.Lock();
+		mainMatrix.translate(-Camera.Position);
+		//Camera.Unlock();
 		texHandle.clear(color(100, 100, 100));
-		//testScene.paint(&texHandle);
-		Game.TestScene.paint(&texHandle);
-		Game.Hero.paint(&texHandle);
+
+		Game.TestScene.paint(&texHandle, mainMatrix);
+		Game.Hero.paint(&texHandle, mainMatrix);
 		advUI.paint(&texHandle);
 		texHandle.display();
 
@@ -48,28 +56,28 @@ int main()
 	// Pushing object to the database
 	cHero hdb;
 	hdb.resize(vec2f(32, 32));
-	//hdb.centralize(vec2f(16, 16));
+	hdb.centralize(vec2f(16, 16));
+	hdb.addAnimationTime(adv::ANIM::IDLE, 600);
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle00.png");
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle01.png");
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle02.png");
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle03.png");
-	//hdb.setAnimation(adv::ANIM::IDLE);
+	hdb.AddHover(3.00f, 0.5f);
 
 	cUnit db;
 	db = cUnit();
 	db.resize(vec2f(128, 8));
-	//db.centralize(vec2f(64, 4));
+	db.centralize(vec2f(64, 4));
 	db.addFrame(adv::ANIM::IDLE, "black.png");
-	//db.setAnimation(adv::ANIM::IDLE);
 	unitDB.addObject("land", db);
 
 	// Creating test scene
 	hdb.moveto(vec2f(0, 0));
 	Game.Hero = hdb;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		db = unitDB.getCopy("land");
-		db.moveto(vec2f(advMath.randf(0.0f, 800.0f), advMath.randf(0.00f, 600.0f)));
+		db.moveto(vec2f(advMath.randf(0.0f, 4000.0f), advMath.randf(0.00f, 600.0f)));
 		Game.TestScene.UnitList.push_back(db);
 	}
 	db = unitDB.getCopy("land");
@@ -77,9 +85,12 @@ int main()
 	Game.TestScene.UnitList.push_back(db);
 
 	// Creating logic timers
+	advEvent.listenForTimer(TIMER_100MS, cGame::TimerAnimation);
 	advEvent.listenForTimer(TIMER_10MS, cGame::TimerHeroMovement);
+	advEvent.listenForTimer(TIMER_10MS, cCamera::TimerAcceleration);
 	advEvent.listen(EVENT_KEY_PRESS, bind(&cHero::Jump, &Game.Hero, _1), sf::Keyboard::W);
 	advEvent.listen(EVENT_KEY_PRESS, bind(&cHero::Respawn, &Game.Hero, _1), sf::Keyboard::R);
+	advEvent.listen(EVENT_MOUSE_MOVE, cCamera::EventMouseMove);
 	
 	advCore.addThread(threadWindow, 0);
 

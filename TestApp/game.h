@@ -1,6 +1,14 @@
 
 #include "stdafx.h"
 
+class cHover
+{
+public:
+	int HoverTimer = 0;
+	float HoverTimeMod = 1.00f;
+	float HoverMagnitude = 0.00f;
+};
+
 class cUnit : public adv::cAnimatedDrawable
 {
 public:
@@ -9,11 +17,16 @@ public:
 	float VertAccel = 0.f;
 };
 
-class cMovingUnit : public cUnit
+class cMovingUnit : public cUnit, public cHover
 {
 public:
 	bool CheckRising();
 	bool CheckFalling();
+
+	void updateBrush();
+	void updateBrushPos();
+	void MoveHover(int time);
+	void AddHover(float magnitude, float timeMod);
 };
 
 class cHero : public cMovingUnit
@@ -56,6 +69,7 @@ public:
 	cHero Hero;
 	cScene TestScene;
 
+	static void TimerAnimation(adv::cEventArgs args);
 	static void TimerHeroMovement(adv::cEventArgs args);
 };
 

@@ -74,6 +74,11 @@ void adv::cAnimatedDrawable::addAnimation(int anim, vector<string> textureList)
 	}
 }
 
+void adv::cAnimatedDrawable::addAnimationTime(int anim, int time)
+{
+	__animData[anim].timePerFrame = time;
+}
+
 void adv::cAnimatedDrawable::dropAnimation(int anim)
 {
 	__animData[anim].frameList.clear();

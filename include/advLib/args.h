@@ -57,8 +57,8 @@ namespace adv
 		cEventArgs(string name) { this->name = name; }
 		cEventArgs(int id, char* name) { this->id = id; this->name = name; }
 		cEventArgs(int id, string name) { this->id = id; this->name = name; }
-		cEventArgs(int id, vec2i posI) { this->id = id; this->posI = posI; }
-		cEventArgs(int id, vec2f posF) { this->id = id; this->posF = posF; }
+		cEventArgs(int id, vec2i posI) { this->id = id; this->posI = posI; this->posF = vec2f((float)posI.x, (float)posI.y); }
+		cEventArgs(int id, vec2f posF) { this->id = id; this->posF = posF; this->posI = vec2i((int)posF.x, (int)posF.y); }
 	};
 
 	class cTimerArgs

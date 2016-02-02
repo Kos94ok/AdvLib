@@ -88,6 +88,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="camera_main.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="game_main.cpp" />
     <ClCompile Include="stdafx_main.cpp">
@@ -96,6 +97,7 @@
     <ClCompile Include="window_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="window.h" />

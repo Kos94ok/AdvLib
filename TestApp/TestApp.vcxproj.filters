@@ -25,6 +25,9 @@
     <Filter Include="Source code\Window">
       <UniqueIdentifier>{2e062f3c-e631-4342-922e-dc37589e955d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source code\Game\Camera">
+      <UniqueIdentifier>{349f826d-9577-4b8a-a68a-11fffb4baf68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -42,6 +45,9 @@
     <ClCompile Include="window_main.cpp">
       <Filter>Source code\Window</Filter>
     </ClCompile>
+    <ClCompile Include="camera_main.cpp">
+      <Filter>Source code\Game\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="window.h">
       <Filter>Source code\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Source code\Game\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
