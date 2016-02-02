@@ -4,6 +4,18 @@
 #include "texture.h"
 #include "vectox.h"
 
+void adv::cAnimatedDrawable::moveAnim(int time)
+{
+	__frameTime += time;
+	if (__frameTime >= __animData[__animation].timePerFrame)
+	{
+		// Change the frame
+		setFrame();
+		// Reset the time
+		__frameTime -= time;
+	}
+}
+
 void adv::cAnimatedDrawable::setFrame(int frame)
 {
 	// Next frame
@@ -28,6 +40,7 @@ void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 
 	if (reset) {
 		__frame = 0;
+		__frameTime = 0;
 	}
 	setFrame(__frame);
 }
