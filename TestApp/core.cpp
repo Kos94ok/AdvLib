@@ -68,8 +68,6 @@ int main()
 	advCore.init();
 
 	cHero hero;
-	advEvent.listen(EVENT_TIMER_TICK, bind(&cHero::jump, &hero, 0));
-	advEvent.listen(EVENT_TIMER_TICK, cHero::jump, &hero);
 
 	advUI.addFont("fontConsole", "C:/Windows/Fonts/consola.ttf", 16);
 	//adv::cUIWindow* wnd = advUI.addWindow("wndMain");
@@ -109,7 +107,7 @@ int main()
 
 	// Creating logic timers
 	advEvent.listenForTimer(TIMER_10MS, timerMovement);
-	//advEvent.listen(EVENT_KEY_PRESS, heroJump);
+	advEvent.listen(EVENT_KEY_PRESS, bind(&cHero::jump, &hero, _1), sf::Keyboard::W);
 	
 	advCore.addThread(threadWindow, 0);
 
