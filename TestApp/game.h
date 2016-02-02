@@ -4,24 +4,48 @@
 class cUnit : public adv::cAnimatedDrawable
 {
 public:
-	float hp;
-	string type;
-	float vertAccel = 0.f;
+	float HP;
+	string Type;
+	float VertAccel = 0.f;
 };
 
-class cHero : public cUnit
+class cMovingUnit : public cUnit
+{
+	bool CheckRising();
+	bool CheckFalling();
+};
+
+class cHero : public cMovingUnit
 {
 public:
-	// Events
-	void jump(adv::cEventArgs args)
-	{
-		if (args.id != sf::Keyboard::W) { return; }
+	int JumpCount = 0;
 
-		//cUnit* hero = &testScene.unitList[0];
-		if (pos().y >= 590 - size().y + center().y)
+	void Jump(adv::cEventArgs args);
+	void Respawn(adv::cEventArgs args);
+
+	cHero(){}
+};
+
+class cEnemy : public cMovingUnit
+{
+
+};
+
+class cScene
+{
+public:
+	bool Visible = false;
+
+	adv::vectox<cUnit> UnitList;
+
+	void paint(sf::RenderTexture* texHandle, sf::Transform matrix = sf::Transform())
+	{
+		UnitList.lock();
+		for (int i = 0; i < (int)UnitList.size(); i++)
 		{
-			vertAccel = -10.00f;
+			UnitList[i].paint(texHandle, matrix);
 		}
+		UnitList.unlock();
 	}
 };
 
@@ -29,25 +53,9 @@ class cGame
 {
 public:
 	cHero Hero;
-	adv::vectox<cUnit> Unit;
+	cScene TestScene;
+
+	static void TimerHeroMovement(adv::cEventArgs args);
 };
 
-class cScene
-{
-public:
-	bool visible = false;
-
-	adv::vectox<cUnit> unitList;
-
-	void paint(sf::RenderTexture* texHandle, sf::Transform matrix = sf::Transform())
-	{
-		unitList.lock();
-		for (int i = 0; i < (int)unitList.size(); i++)
-		{
-			unitList[i].paint(texHandle, matrix);
-		}
-		unitList.unlock();
-	}
-};
-
-cGame Game;
+extern cGame Game;

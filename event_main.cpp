@@ -44,6 +44,7 @@ void adv::cEventMain::listenForTimer(cTimerArgs timer, function <void(cEventArgs
 	cEventListener ear;
 	ear.event.id = EVENT_TIMER_TICK;
 	ear.handler = handler;
+	ear.condition = -1;
 	ear.timerCond = timer;
 	listenerList.push_back(ear);
 }

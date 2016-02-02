@@ -6,4 +6,4 @@ class cWindow
 public:
 };
 
-cWindow Window;
+extern cWindow Window;
