@@ -11,6 +11,7 @@ public:
 
 class cMovingUnit : public cUnit
 {
+public:
 	bool CheckRising();
 	bool CheckFalling();
 };

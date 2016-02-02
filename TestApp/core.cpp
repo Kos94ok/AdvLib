@@ -49,15 +49,18 @@ int main()
 	cHero hdb;
 	hdb.resize(vec2f(32, 32));
 	//hdb.centralize(vec2f(16, 16));
-	hdb.addFrame(adv::ANIM::IDLE, "hero.png");
-	hdb.setAnimation(adv::ANIM::IDLE);
+	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle00.png");
+	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle01.png");
+	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle02.png");
+	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle03.png");
+	//hdb.setAnimation(adv::ANIM::IDLE);
 
 	cUnit db;
 	db = cUnit();
 	db.resize(vec2f(128, 8));
 	//db.centralize(vec2f(64, 4));
 	db.addFrame(adv::ANIM::IDLE, "black.png");
-	db.setAnimation(adv::ANIM::IDLE);
+	//db.setAnimation(adv::ANIM::IDLE);
 	unitDB.addObject("land", db);
 
 	// Creating test scene

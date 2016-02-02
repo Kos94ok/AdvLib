@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "animation.h"
 #include "texture.h"
+#include "vectox.h"
 
 void adv::cAnimatedDrawable::setFrame(int frame)
 {
@@ -31,16 +32,13 @@ void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 	setFrame(__frame);
 }
 
-#include "vectox.h"
 void adv::cAnimatedDrawable::addFrame(int anim, int texture)
 {
-	//vectox<int>(1, 2, 3);
-	vector<int> test;
 	__animData[anim].frameList.push_back(texture);
 	// Check current animation
-	if (anim == __animation)
+	if (anim == __animation && __frame == (int)__animData[anim].frameList.size() - 1)
 	{
-
+		texturize(__animData[__animation].frameList[__frame]);
 	}
 }
 

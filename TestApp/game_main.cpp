@@ -4,7 +4,7 @@
 
 cGame Game;
 
-bool cUnit::CheckRising()
+bool cMovingUnit::CheckRising()
 {
 	for (cUnit unit : Game.TestScene.UnitList)
 	{
@@ -21,7 +21,7 @@ bool cUnit::CheckRising()
 	return true;
 }
 
-bool cUnit::CheckFalling()
+bool cMovingUnit::CheckFalling()
 {
 	for (cUnit unit : Game.TestScene.UnitList)
 	{
@@ -64,7 +64,7 @@ void cGame::TimerHeroMovement(adv::cEventArgs args)
 
 	float speedX = 250.00f * timemod;
 	float accY = 10.f * timemod;
-	cUnit* hero = &Game.Hero;
+	cHero* hero = &Game.Hero;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
 		hero->move(vec2f(-speedX, 0.f));
 	}
