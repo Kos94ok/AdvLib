@@ -64,6 +64,9 @@
     <Filter Include="Library Code\Systems\UI\Input">
       <UniqueIdentifier>{c62769c7-4a38-4a65-8f09-43a307cab963}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library Code\API\Parse">
+      <UniqueIdentifier>{ca5ea39c-5768-499c-89cf-7e033168f5c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\advLib\database.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="include\advlib.h">
       <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="parse.h">
+      <Filter>Library Code\API\Parse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="database_main.cpp">
       <Filter>Library Code\API\Database</Filter>
+    </ClCompile>
+    <ClCompile Include="parse_main.cpp">
+      <Filter>Library Code\API\Parse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

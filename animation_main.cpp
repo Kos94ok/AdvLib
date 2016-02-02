@@ -31,9 +31,17 @@ void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 	setFrame(__frame);
 }
 
+#include "vectox.h"
 void adv::cAnimatedDrawable::addFrame(int anim, int texture)
 {
+	//vectox<int>(1, 2, 3);
+	vector<int> test;
 	__animData[anim].frameList.push_back(texture);
+	// Check current animation
+	if (anim == __animation)
+	{
+
+	}
 }
 
 void adv::cAnimatedDrawable::addFrame(int anim, string texture)

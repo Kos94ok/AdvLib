@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Заголовочные файлы">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -16,21 +12,46 @@
     <Filter Include="Precompiled Header">
       <UniqueIdentifier>{c93f7880-53a8-4578-a552-06c57dcbe060}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source code">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source code\Game">
+      <UniqueIdentifier>{555c21f9-0564-427c-b703-10b10620ecc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source code\Core">
+      <UniqueIdentifier>{96841302-b344-48d4-869b-6f00ef81488a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source code\Window">
+      <UniqueIdentifier>{2e062f3c-e631-4342-922e-dc37589e955d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="core.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx_main.cpp">
       <Filter>Precompiled Header</Filter>
+    </ClCompile>
+    <ClCompile Include="core.cpp">
+      <Filter>Source code\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="game_main.cpp">
+      <Filter>Source code\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="window_main.cpp">
+      <Filter>Source code\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Precompiled Header</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source code\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Source code\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

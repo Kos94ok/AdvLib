@@ -27,10 +27,10 @@ namespace adv
 		int srand(int val);
 		float randAngle();
 		float convertAngle(float angle);
-		bool intToBool(int a);
-		bool stringToBool(string str);
-		int boolToInt(bool a);
-		int stringToInt(string str);
+		//bool intToBool(int a);
+		//bool stringToBool(string str);
+		//int boolToInt(bool a);
+		//int stringToInt(string str);
 		bool isPointInRect(float x, float y, float rectX, float rectY, float rectSizeX, float rectSizeY);
 
 		float PI = 3.14159f;
@@ -39,4 +39,4 @@ namespace adv
 	};
 }
 
-extern adv::cMath advMath;
+extern adv::cMath advMath;	

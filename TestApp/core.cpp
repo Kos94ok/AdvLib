@@ -1,34 +1,12 @@
 
 #include "stdafx.h"
+#include "game.h"
+#include "window.h"
 
 //====================================================================================
 // Header
 //====================================================================================
-class cUnit : public adv::cAnimatedDrawable
-{
-public:
-	string type;
-	float vertAccel = 0.f;
-};
 
-class cScene
-{
-public:
-	bool visible = false;
-
-	vector<cUnit> unitList;
-	sf::Mutex unitListAccess;
-
-	void paint(sf::RenderTexture* texHandle, sf::Transform matrix = sf::Transform())
-	{
-		unitListAccess.lock();
-		for (int i = 0; i < (int)unitList.size(); i++)
-		{
-			unitList[i].paint(texHandle, matrix);
-		}
-		unitListAccess.unlock();
-	}
-};
 
 //====================================================================================
 // Source code
@@ -85,21 +63,14 @@ void timerMovement(adv::cEventArgs args)
 	}
 }
 
-void heroJump(adv::cEventArgs args)
-{
-	if (args.id != sf::Keyboard::W) { return; }
-
-	cUnit* hero = &testScene.unitList[0];
-	if (hero->pos().y >= 590 - hero->size().y + hero->center().y)
-	{
-		hero->vertAccel = -10.00f;
-	}
-}
-
 int main()
 {
 	advCore.init();
-	
+
+	cHero hero;
+	advEvent.listen(EVENT_TIMER_TICK, bind(&cHero::jump, &hero, 0));
+	advEvent.listen(EVENT_TIMER_TICK, cHero::jump, &hero);
+
 	advUI.addFont("fontConsole", "C:/Windows/Fonts/consola.ttf", 16);
 	//adv::cUIWindow* wnd = advUI.addWindow("wndMain");
 	//wnd->addLabel("label0", vec2f(0, 0), L"Test String", "fontConsole", color(255, 255, 255));
@@ -113,9 +84,9 @@ int main()
 	unitDB.addObject("hero", db);
 
 	db = cUnit();
-	db.resize(vec2f(128, 30));
-	db.centralize(vec2f(64, 15));
-	db.addFrame(adv::ANIM::IDLE, "ui_btn.png");
+	db.resize(vec2f(128, 80));
+	db.centralize(vec2f(64, 75));
+	db.addFrame(adv::ANIM::IDLE, "grass.png");
 	db.setAnimation(adv::ANIM::IDLE);
 	unitDB.addObject("land", db);
 
@@ -124,21 +95,21 @@ int main()
 	db.moveto(vec2f(0, 0));
 	testScene.unitList.push_back(db);
 	db = unitDB.getCopy("land");
-	db.moveto(vec2f(64, 595));
+	db.moveto(vec2f(64, 605));
 	testScene.unitList.push_back(db);
 	db = unitDB.getCopy("land");
-	db.moveto(vec2f(128, 595));
+	db.moveto(vec2f(128, 605));
 	testScene.unitList.push_back(db);
 	db = unitDB.getCopy("land");
-	db.moveto(vec2f(192, 595));
+	db.moveto(vec2f(192, 605));
 	testScene.unitList.push_back(db);
 	db = unitDB.getCopy("land");
-	db.moveto(vec2f(256, 595));
+	db.moveto(vec2f(256, 605));
 	testScene.unitList.push_back(db);
 
 	// Creating logic timers
 	advEvent.listenForTimer(TIMER_10MS, timerMovement);
-	advEvent.listen(EVENT_KEY_PRESS, heroJump);
+	//advEvent.listen(EVENT_KEY_PRESS, heroJump);
 	
 	advCore.addThread(threadWindow, 0);
 
