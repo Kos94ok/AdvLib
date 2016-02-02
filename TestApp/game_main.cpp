@@ -34,7 +34,8 @@ bool cMovingUnit::CheckRising()
 	sf::FloatRect myRect(pos() - center(), size());
 	for (cUnit unit : Game.TestScene.UnitList)
 	{
-		if (unit.pos() != this->pos() && unit.size() != this->size())
+		// Collision only allowed with the gameplay plane
+		if (unit.Plane == cPlane::Gameplay && unit.pos() != this->pos() && unit.size() != this->size())
 		{
 			sf::FloatRect theirRect(unit.pos() - unit.center() + vec2f(0.f, -VertAccel / 2), unit.size() + vec2f(0.f, VertAccel / 2));
 			if (myRect.left + myRect.width >= theirRect.left && myRect.left <= theirRect.left + theirRect.width
@@ -53,7 +54,8 @@ bool cMovingUnit::CheckFalling()
 	sf::FloatRect myRect(pos() - center(), size());
 	for (cUnit unit : Game.TestScene.UnitList)
 	{
-		if (unit.pos() != this->pos() && unit.size() != this->size())
+		// Collision only allowed with the gameplay plane
+		if (unit.Plane == cPlane::Gameplay && unit.pos() != this->pos() && unit.size() != this->size())
 		{
 			sf::FloatRect theirRect(unit.pos() - unit.center() + vec2f(0.f, -VertAccel / 2), unit.size() + vec2f(0.f, VertAccel / 2));
 			if (myRect.left + myRect.width >= theirRect.left && myRect.left <= theirRect.left + theirRect.width
@@ -91,8 +93,11 @@ void cGame::TimerAnimation(adv::cEventArgs args)
 {
 	float timemod = args.timer_tickDelay;
 
-	cHero* hero = &Game.Hero;
-	hero->moveAnim(timemod * 1000);
+	Game.Hero.moveAnim(timemod * 1000);
+	for (int i = 0; i < (int)Game.TestScene.UnitList.size(); i++)
+	{
+		Game.TestScene.UnitList[i].moveAnim(timemod * 1000);
+	}
 }
 
 void cGame::TimerHeroMovement(adv::cEventArgs args)

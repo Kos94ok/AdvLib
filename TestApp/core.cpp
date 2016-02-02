@@ -57,7 +57,7 @@ int main()
 	cHero hdb;
 	hdb.resize(vec2f(32, 32));
 	hdb.centralize(vec2f(16, 16));
-	hdb.addAnimationTime(adv::ANIM::IDLE, 600);
+	hdb.addAnimationTime(adv::ANIM::IDLE, 150);
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle00.png");
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle01.png");
 	hdb.addFrame(adv::ANIM::IDLE, "charglow_idle02.png");
@@ -70,18 +70,41 @@ int main()
 	db.centralize(vec2f(64, 4));
 	db.addFrame(adv::ANIM::IDLE, "black.png");
 	unitDB.addObject("land", db);
+	db = cUnit();
+	db.resize(vec2f(64, 64));
+	db.centralize(vec2f(32, 32));
+	db.addAnimationTime(adv::ANIM::IDLE, 500);
+	db.addFrame(adv::ANIM::IDLE, "snake_idle00.png");
+	db.addFrame(adv::ANIM::IDLE, "snake_idle01.png");
+	db.Plane = cPlane::Foreground;
+	unitDB.addObject("snake", db);
 
 	// Creating test scene
 	hdb.moveto(vec2f(0, 0));
 	Game.Hero = hdb;
-	for (int i = 0; i < 50; i++)
-	{
-		db = unitDB.getCopy("land");
-		db.moveto(vec2f(advMath.randf(0.0f, 4000.0f), advMath.randf(0.00f, 600.0f)));
-		Game.TestScene.UnitList.push_back(db);
-	}
+	db = unitDB.getCopy("snake");
+	db.moveto(vec2f(400, 268));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(400, 300));
+	Game.TestScene.UnitList.push_back(db);
 	db = unitDB.getCopy("land");
 	db.moveto(vec2f(0, 550));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(100, 400));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(600, 250));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(800, 100));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(100, 500));
+	Game.TestScene.UnitList.push_back(db);
+	db = unitDB.getCopy("land");
+	db.moveto(vec2f(150, 550));
 	Game.TestScene.UnitList.push_back(db);
 
 	// Creating logic timers

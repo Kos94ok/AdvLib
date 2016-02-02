@@ -1,6 +1,17 @@
 
 #include "stdafx.h"
 
+class cPlane
+{
+public:
+	enum
+	{
+		Foreground,
+		Gameplay,
+		Background,
+	};
+};
+
 class cHover
 {
 public:
@@ -15,6 +26,7 @@ public:
 	float HP;
 	string Type;
 	float VertAccel = 0.f;
+	int Plane = cPlane::Gameplay;
 };
 
 class cMovingUnit : public cUnit, public cHover

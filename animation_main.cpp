@@ -12,7 +12,7 @@ void adv::cAnimatedDrawable::moveAnim(int time)
 		// Change the frame
 		setFrame();
 		// Reset the time
-		__frameTime -= time;
+		__frameTime -= __animData[__animation].timePerFrame;
 	}
 }
 
