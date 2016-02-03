@@ -5,12 +5,12 @@
 
 #define MISSINGNO				-1
 
-#include <Windows.h>
 #include <SFML/Main.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/Window.hpp>
+#include <Windows.h>
 #include <functional>
 #include <vector>
 #include <thread>

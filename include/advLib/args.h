@@ -2,6 +2,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "flags.h"
 
 using namespace std;
 
@@ -13,6 +14,10 @@ namespace adv
 	class cEventArgs
 	{
 	public:
+		/*
+		// A unique identifier of a source object.
+		*/
+		int sourceId = -1;
 		/*
 		// For mouse click events: Mouse button id
 		// For UI button events: Mouse button id
@@ -43,7 +48,13 @@ namespace adv
 		// For timers: Real tick time. No override.
 		*/
 		float timer_tickDelay;
-
+		/*
+		// For animation:
+		*/
+		//int animation_
+		
+		// Event creator object flags
+		cFlags sourceFlags;
 		// Any user-defined data.
 		int user_int[8];
 		// Any user-defined data.
@@ -59,6 +70,8 @@ namespace adv
 		cEventArgs(int id, string name) { this->id = id; this->name = name; }
 		cEventArgs(int id, vec2i posI) { this->id = id; this->posI = posI; this->posF = vec2f((float)posI.x, (float)posI.y); }
 		cEventArgs(int id, vec2f posF) { this->id = id; this->posF = posF; this->posI = vec2i((int)posF.x, (int)posF.y); }
+		cEventArgs(int id, int source) { this->id = id; this->sourceId = source; }
+		cEventArgs(int id, int source, cFlags sourceFlags) { this->id = id; this->sourceId = source; this->sourceFlags = sourceFlags; }
 	};
 
 	class cTimerArgs

@@ -10,6 +10,9 @@ namespace adv
 	{
 		IDLE,
 		MOVE,
+		ATTACK,
+		ATTACK_BEGIN,
+		ATTACK_END,
 	};
 
 	class cAnimationData
@@ -17,6 +20,7 @@ namespace adv
 	public:
 		vector<int> frameList;
 		int timePerFrame;
+		int nextAnimation = -1;
 	};
 
 	class cAnimatedDrawable : public cDrawable
@@ -42,6 +46,7 @@ namespace adv
 		void addAnimation(int anim, vector<int> textureList);
 		void addAnimation(int anim, vector<string> textureList);
 		void addAnimationTime(int anim, int time);
+		void addAnimationChain(int anim, int nextAnim);
 		void dropAnimation(int anim);
 	};
 }

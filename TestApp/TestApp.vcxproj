@@ -90,16 +90,23 @@
   <ItemGroup>
     <ClCompile Include="camera_main.cpp" />
     <ClCompile Include="core.cpp" />
+    <ClCompile Include="database_main.cpp" />
     <ClCompile Include="game_main.cpp" />
     <ClCompile Include="stdafx_main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="unit_main.cpp" />
     <ClCompile Include="window_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="database.h" />
+    <ClInclude Include="flag.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="plane.h" />
+    <ClInclude Include="scene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="unit.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

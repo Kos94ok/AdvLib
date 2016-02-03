@@ -21,8 +21,10 @@ void adv::cEventMain::add(int id, cEventArgs args)
 	//for (cEventListener ear : listenerList)
 	{
 		ear = listenerList[i];
-		if (ear.event.id == id && (ear.condition == -1 || args.id == ear.condition)	&& // <--- Generic condition
-			(ear.timerCond.id == -1 || ear.timerCond.id == args.id) && (ear.timerCond.name == "" || ear.timerCond.name == args.name)) // <--- Timer condition
+		if (ear.event.id == id && (ear.condition == -1 || args.id == ear.condition) // <--- Generic condition
+			&& (ear.timerCond.id == -1 || ear.timerCond.id == args.id) && (ear.timerCond.name == "" || ear.timerCond.name == args.name) // <--- Timer condition
+			&& (ear.sourceFlag == -1 || args.sourceFlags.hasFlag(ear.sourceFlag)) // <--- Source condition
+			) 
 		{
 			// If something is listening to new event, execute the event handlers
 			handlerQueue.add(ear.handler, args);
@@ -30,12 +32,13 @@ void adv::cEventMain::add(int id, cEventArgs args)
 	}
 }
 
-void adv::cEventMain::listen(int id, function<void(cEventArgs args)> handler, int condition)
+void adv::cEventMain::listen(int id, function<void(cEventArgs args)> handler, int condition, int sourceFlag)
 {
 	cEventListener ear;
 	ear.event.id = id;
 	ear.handler = handler;
 	ear.condition = condition;
+	ear.sourceFlag = sourceFlag;
 	listenerList.push_back(ear);
 }
 

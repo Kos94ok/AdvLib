@@ -3,6 +3,7 @@
 #include "animation.h"
 #include "texture.h"
 #include "vectox.h"
+#include "event.h"
 
 void adv::cAnimatedDrawable::moveAnim(int time)
 {
@@ -18,11 +19,20 @@ void adv::cAnimatedDrawable::moveAnim(int time)
 
 void adv::cAnimatedDrawable::setFrame(int frame)
 {
+	this->_begin();
 	// Next frame
 	if (frame == -1) {
 		__frame += 1;
-		if (__frame >= (int)__animData[__animation].frameList.size()) {
-			__frame = 0;
+		if (__frame >= (int)__animData[__animation].frameList.size())
+		{
+			if (__animData[__animation].nextAnimation != -1)
+			{
+				this->_end();
+				setAnimation(__animData[__animation].nextAnimation);
+				return;
+			}
+			else
+				__frame = 0;
 		}
 	}
 	// Random frame
@@ -30,10 +40,13 @@ void adv::cAnimatedDrawable::setFrame(int frame)
 		__frame = frame % (int)__animData[__animation].frameList.size();
 	}
 	texturize(__animData[__animation].frameList[__frame]);
+	this->_end();
 }
 
 void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 {
+	advEvent.add(EVENT_ANIM_END, cEventArgs(__animation, id(), getFlags()));
+	this->_begin();
 	__animation = anim;
 
 	if (__frame >= (int)__animData[anim].frameList.size()) { reset = true; }
@@ -42,17 +55,21 @@ void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
 		__frame = 0;
 		__frameTime = 0;
 	}
+	this->_end();
 	setFrame(__frame);
+	advEvent.add(EVENT_ANIM_BEGIN, cEventArgs(anim, id(), getFlags()));
 }
 
 void adv::cAnimatedDrawable::addFrame(int anim, int texture)
 {
+	this->_begin();
 	__animData[anim].frameList.push_back(texture);
 	// Check current animation
 	if (anim == __animation && __frame == (int)__animData[anim].frameList.size() - 1)
 	{
 		texturize(__animData[__animation].frameList[__frame]);
 	}
+	this->_end();
 }
 
 void adv::cAnimatedDrawable::addFrame(int anim, string texture)
@@ -76,10 +93,21 @@ void adv::cAnimatedDrawable::addAnimation(int anim, vector<string> textureList)
 
 void adv::cAnimatedDrawable::addAnimationTime(int anim, int time)
 {
+	this->_begin();
 	__animData[anim].timePerFrame = time;
+	this->_end();
+}
+
+void adv::cAnimatedDrawable::addAnimationChain(int anim, int nextAnim)
+{
+	this->_begin();
+	__animData[anim].nextAnimation = nextAnim;
+	this->_end();
 }
 
 void adv::cAnimatedDrawable::dropAnimation(int anim)
 {
+	this->_begin();
 	__animData[anim].frameList.clear();
+	this->_end();
 }

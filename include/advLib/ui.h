@@ -88,7 +88,7 @@ namespace adv
 		void updateBrushPrepaint();
 	};
 
-	class cUIWindow : public cUIParent
+	class cUIWindow : public cUIParent, public cFlags
 	{
 	private:
 		bool __hidden = false;

@@ -28,6 +28,15 @@
     <Filter Include="Source code\Game\Camera">
       <UniqueIdentifier>{349f826d-9577-4b8a-a68a-11fffb4baf68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source code\Game\Unit">
+      <UniqueIdentifier>{203bf26c-a147-4cba-a4d6-a7f9db028029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source code\Game\Other">
+      <UniqueIdentifier>{b333f4e2-d0ad-48fe-8be3-4977c8da41ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source code\Game\Database">
+      <UniqueIdentifier>{9468abef-c965-4d1f-9bd9-8ab7deff6e84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,6 +57,12 @@
     <ClCompile Include="camera_main.cpp">
       <Filter>Source code\Game\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="unit_main.cpp">
+      <Filter>Source code\Game\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="database_main.cpp">
+      <Filter>Source code\Game\Database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -61,6 +76,21 @@
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Source code\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="unit.h">
+      <Filter>Source code\Game\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Source code\Game\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="plane.h">
+      <Filter>Source code\Game\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>Source code\Game\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="flag.h">
+      <Filter>Source code\Game\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

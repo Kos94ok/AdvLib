@@ -2,101 +2,68 @@
 #include "stdafx.h"
 #include "game.h"
 #include "camera.h"
+#include "database.h"
 
 cGame Game;
 
-void cMovingUnit::MoveHover(int time)
+void cGame::AddUnit(cUnit Data, cScene* HomeScene)
 {
-	HoverTimer += time;
-	updateBrushPos();
+	Data.HomeScene = HomeScene;
+	HomeScene->UnitList.push(Data);
 }
 
-void cMovingUnit::AddHover(float magnitude, float timeMod)
+void cGame::AddEnemy(cEnemy Data, cScene* HomeScene)
 {
-	HoverMagnitude = magnitude;
-	HoverTimeMod = timeMod;
+	Data.HomeScene = HomeScene;
+	HomeScene->EnemyList.push(Data);
 }
 
-void cMovingUnit::updateBrush()
+void cGame::AddMissile(cMissile Data, cScene* HomeScene)
 {
-	adv::cAnimatedDrawable::updateBrush();
-	brushRect.move(vec2f(0.00f, HoverMagnitude * sin((float)HoverTimer / 100 * HoverTimeMod)));
+	Data.HomeScene = HomeScene;
+	HomeScene->MissileList.push(Data);
 }
 
-void cMovingUnit::updateBrushPos()
+void cGame::AddMissile(string ID, vec2f Origin, vec2f Target, float Speed, int Owner, cScene* HomeScene)
 {
-	adv::cAnimatedDrawable::updateBrushPos();
-	brushRect.move(vec2f(0.00f, HoverMagnitude * sin((float)HoverTimer / 100 * HoverTimeMod)));
+	cMissile db = Database.Missile.getCopy(ID);
+	db.moveto(Origin);
+	db.MovingVector = advMath.polar(Origin, Speed, advMath.getAngle(Origin, Target)) - Origin;
+	db.Owner = Owner;
+	AddMissile(db, HomeScene);
 }
 
-bool cMovingUnit::CheckRising()
+void cGame::EnemySnakeMissile(adv::cEventArgs args)
 {
-	sf::FloatRect myRect(pos() - center(), size());
-	for (cUnit unit : Game.TestScene.UnitList)
+	int id = args.sourceId;
+	for (int i = 0; i < Game.ActiveScene->EnemyList.count(); i++)
 	{
-		// Collision only allowed with the gameplay plane
-		if (unit.Plane == cPlane::Gameplay && unit.pos() != this->pos() && unit.size() != this->size())
+		cEnemy Enemy = Game.ActiveScene->EnemyList[i];
+		if (Enemy == id)
 		{
-			sf::FloatRect theirRect(unit.pos() - unit.center() + vec2f(0.f, -VertAccel / 2), unit.size() + vec2f(0.f, VertAccel / 2));
-			if (myRect.left + myRect.width >= theirRect.left && myRect.left <= theirRect.left + theirRect.width
-				&& myRect.top >= theirRect.top && myRect.top <= theirRect.top + theirRect.height)
-			{
-				VertAccel = 0.0f;
-				return false;
-			}
+			Game.AddMissile("snake", Enemy.pos(), Game.Hero.pos(), 300.00f, cOwner::Enemy, Game.ActiveScene);
+			break;
 		}
 	}
-	return true;
-}
-
-bool cMovingUnit::CheckFalling()
-{
-	sf::FloatRect myRect(pos() - center(), size());
-	for (cUnit unit : Game.TestScene.UnitList)
-	{
-		// Collision only allowed with the gameplay plane
-		if (unit.Plane == cPlane::Gameplay && unit.pos() != this->pos() && unit.size() != this->size())
-		{
-			sf::FloatRect theirRect(unit.pos() - unit.center() + vec2f(0.f, -VertAccel / 2), unit.size() + vec2f(0.f, VertAccel / 2));
-			if (myRect.left + myRect.width >= theirRect.left && myRect.left <= theirRect.left + theirRect.width
-				&& myRect.top + myRect.height >= theirRect.top && myRect.top + myRect.height <= theirRect.top + theirRect.height)
-			{
-				moveto(vec2f(pos().x, unit.pos().y - unit.center().y - size().y + center().y));
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-void cHero::Jump(adv::cEventArgs args)
-{
-	if (!CheckFalling())
-	{
-		JumpCount = 1;
-		VertAccel = -5.00f;
-	}
-	else if (JumpCount < 2)
-	{
-		JumpCount += 1;
-		if (VertAccel >= 0.00f) VertAccel = -3.00f;
-		else VertAccel -= 3.00f;
-	}
-}
-
-void cHero::Respawn(adv::cEventArgs args)
-{
-	moveto(vec2f(0, 0));
 }
 
 void cGame::TimerAnimation(adv::cEventArgs args)
 {
 	float timemod = args.timer_tickDelay;
 
-	Game.Hero.moveAnim(timemod * 1000);
-	for (int i = 0; i < (int)Game.TestScene.UnitList.size(); i++)
+	Game.Hero.moveAnim((int)(timemod * 1000));
+	for (int i = 0; i < (int)Game.ActiveScene->UnitList.size(); i++)
 	{
-		Game.TestScene.UnitList[i].moveAnim(timemod * 1000);
+		Game.ActiveScene->UnitList[i].moveAnim((int)(timemod * 1000));
+	}
+	for (int i = 0; i < (int)Game.ActiveScene->EnemyList.size(); i++)
+	{
+		Game.ActiveScene->EnemyList[i].moveAnim((int)(timemod * 1000));
+	}
+	for (int i = 0; i < (int)Game.ActiveScene->MissileList.size(); i++)
+	{
+		Game.ActiveScene->MissileList[i].moveAnim((int)(timemod * 1000));
+		Game.ActiveScene->MissileList[i].rotate(Game.ActiveScene->MissileList[i].RotationSpeed * timemod);
 	}
 }
 
@@ -129,9 +96,96 @@ void cGame::TimerHeroMovement(adv::cEventArgs args)
 	{
 		hero->VertAccel = 0.00f;
 	}
-	//Camera.MoveTo(vec2f(hero->pos().x, 0.00f));
 	Camera.AnchorTo(vec2f(hero->pos().x, 0.00f));
 	Camera.Unlock();
 
-	hero->MoveHover(timemod * 1000);
+	hero->MoveHover((int)(timemod * 1000));
+}
+
+void cGame::TimerEnemyMovement(adv::cEventArgs args)
+{
+	float timemod = args.timer_tickDelay;
+	float accY = 10.f * timemod;
+
+	for (int i = 0; i < Game.ActiveScene->EnemyList.count(); i++)
+	{
+		cEnemy* Enemy = &Game.ActiveScene->EnemyList[i];
+		if (Enemy->VertAccel >= 0.00f && Enemy->CheckFalling())
+		{
+			Enemy->move(vec2f(0.f, Enemy->VertAccel));
+			Enemy->VertAccel += accY;
+		}
+	}
+}
+
+void cGame::TimerEnemyAI(adv::cEventArgs args)
+{
+	float timemod = args.timer_tickDelay;
+
+	for (int i = 0; i < Game.ActiveScene->EnemyList.count(); i++)
+	{
+		cEnemy* Enemy = &Game.ActiveScene->EnemyList[i];
+		// Attacking
+		switch (Enemy->AttackType)
+		{
+		case cEnemy::AttackType::SnakeShooting:
+			// Facing
+			if (Game.Hero.pos().x < Enemy->pos().x)
+				Enemy->SetFacing(cFacing::Left);
+			else
+				Enemy->SetFacing(cFacing::Right);
+			// Attacking
+			if (advMath.getDistance(Enemy->pos(), Game.Hero.pos()) <= 200
+				&& Enemy->animation() == adv::ANIM::IDLE)
+			{
+				Enemy->setAnimation(adv::ANIM::ATTACK);
+			}
+
+			break;
+		}
+	}
+}
+
+void cGame::TimerMissileMovement(adv::cEventArgs args)
+{
+	float timemod = args.timer_tickDelay;
+	float accY = 10.f * timemod;
+
+	for (int i = 0; i < Game.ActiveScene->MissileList.count(); i++)
+	{
+		cMissile* Missile = &Game.ActiveScene->MissileList[i];
+		/*if (Enemy->VertAccel >= 0.00f && Enemy->CheckFalling())
+		{
+			Enemy->move(vec2f(0.f, Enemy->VertAccel));
+			Enemy->VertAccel += accY;
+		}*/
+		// Move the missile
+		Missile->move(Missile->MovingVector * timemod);
+		// Check collision with the enemies
+		if (Missile->Owner == cOwner::Player)
+		{
+			sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
+			for (cEnemy Enemy : Game.ActiveScene->EnemyList)
+			{
+				sf::FloatRect EnemyRect(Enemy.pos() - Enemy.center(), Enemy.size());
+				if (MissileRect.intersects(EnemyRect))
+				{
+					Game.ActiveScene->MissileList.remove(i);
+					i -= 1;
+					break;
+				}
+			}
+		}
+		// Check collision with the hero
+		else if (Missile->Owner == cOwner::Enemy)
+		{
+			sf::FloatRect HeroRect(Game.Hero.pos() - Game.Hero.center(), Game.Hero.size());
+			sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
+			if (MissileRect.intersects(HeroRect))
+			{
+				Game.ActiveScene->MissileList.remove(i);
+				i -= 1;
+			}
+		}
+	}
 }

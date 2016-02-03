@@ -15,7 +15,12 @@ template<typename tObject> tObject adv::cDatabase<tObject>::getCopy(string type)
 {
 	for (int i = 0; i < (int)min(__entryList.size(), __entryType.size()); i++)
 	{
-		if (__entryType[i] == type) { return __entryList[i]; }
+		if (__entryType[i] == type)
+		{
+			tObject handle(__entryList[i]);
+			handle.makeUnique();
+			return handle;
+		}
 	}
 	advException.warning(WARNING::BADQUERY, type);
 	return __entryList[0];

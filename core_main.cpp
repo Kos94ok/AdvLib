@@ -10,6 +10,8 @@ adv::cCore advCore;
 adv::cValueTown advValue;
 adv::cExceptionMain advException;
 
+long adv::cIDInternal::__nextID = 0;
+
 void adv::cCore::init()
 {
 	advEvent.init();			// Must be first

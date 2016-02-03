@@ -12,7 +12,7 @@
 
 namespace adv
 {
-	class cDrawable
+	class cDrawable : public cID, public cFlags
 	{
 	private:
 		vec2f _pos;

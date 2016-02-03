@@ -9,6 +9,8 @@
 #include "bbool.h"
 #include "const.h"
 #include "other.h"
+#include "flags.h"
+#include "id.h"
 
 #define STATE_UP				0			// Thread is working normally
 #define STATE_DOWN				1			// Thread is disabled

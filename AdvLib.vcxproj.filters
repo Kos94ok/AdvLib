@@ -129,8 +129,14 @@
     <ClInclude Include="include\advlib.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="parse.h">
+    <ClInclude Include="include\advLib\flags.h">
+      <Filter>Library Code\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\parse.h">
       <Filter>Library Code\API\Parse</Filter>
+    </ClInclude>
+    <ClInclude Include="include\advLib\id.h">
+      <Filter>Library Code\Support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

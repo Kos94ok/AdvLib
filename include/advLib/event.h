@@ -24,6 +24,10 @@
 #define EVENT_UIBTN_HOVER				1104
 #define EVENT_UIBTN_NOHOVER				1105
 
+// 1150 - Animation L1 events
+#define EVENT_ANIM_BEGIN				1150
+#define EVENT_ANIM_END					1151
+
 namespace adv
 {
 	/*
@@ -44,7 +48,8 @@ namespace adv
 	public:
 		cEvent event;
 		function<void(cEventArgs args)> handler;
-		int condition;
+		int condition = -1;
+		int sourceFlag = -1;
 
 		cTimerArgs timerCond;
 	};
@@ -92,7 +97,7 @@ namespace adv
 		event that matches 'id' field. Listener can't be removed from the list. This function is intended
 		to be used with global events that require similar reaction every time.
 		*/
-		void listen(int id, function<void(cEventArgs args)> handler, int condition = -1);
+		void listen(int id, function<void(cEventArgs args)> handler, int condition = -1, int sourceFlag = -1);
 		/*
 		// Create a new event listener. Handler function will be executed as soon as there is a new
 		EVENT_TIMER_TICK event with matching timer IDs. Listener can't be removed from the list. This

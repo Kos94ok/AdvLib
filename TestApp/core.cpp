@@ -3,16 +3,17 @@
 #include "game.h"
 #include "window.h"
 #include "camera.h"
+#include "database.h"
+#include "flag.h"
 
 //====================================================================================
 // Source code
 //====================================================================================
 cScene testScene;
-adv::cDatabase<cUnit> unitDB;
 
 void threadWindow(int id, adv::cArgs args)
 {
-	sf::RenderWindow winHandle(sf::VideoMode(800, 600), "Window", 7U);
+	sf::RenderWindow winHandle(sf::VideoMode(800, 600), "Taiga 5.1", 7U);
 	winHandle.setKeyRepeatEnabled(false);
 	//winHandle.setVerticalSyncEnabled(true);
 	sf::RenderTexture texHandle;
@@ -69,51 +70,83 @@ int main()
 	db.resize(vec2f(128, 8));
 	db.centralize(vec2f(64, 4));
 	db.addFrame(adv::ANIM::IDLE, "black.png");
-	unitDB.addObject("land", db);
-	db = cUnit();
-	db.resize(vec2f(64, 64));
-	db.centralize(vec2f(32, 32));
-	db.addAnimationTime(adv::ANIM::IDLE, 500);
-	db.addFrame(adv::ANIM::IDLE, "snake_idle00.png");
-	db.addFrame(adv::ANIM::IDLE, "snake_idle01.png");
-	db.Plane = cPlane::Foreground;
-	unitDB.addObject("snake", db);
+	Database.Unit.addObject("land", db);
+
+	cEnemy edb;
+	edb.AttackType = cEnemy::AttackType::SnakeShooting;
+	edb.resize(vec2f(48, 48));
+	edb.centralize(vec2f(24, 24));
+	edb.addAnimationTime(adv::ANIM::IDLE, 500);
+	edb.addFrame(adv::ANIM::IDLE, "snake_idle00.png");
+	edb.addFrame(adv::ANIM::IDLE, "snake_idle01.png");
+	edb.addAnimationTime(adv::ANIM::ATTACK, 250);
+	edb.addAnimationTime(adv::ANIM::ATTACK_END, 250);
+	edb.addFrame(adv::ANIM::ATTACK, "snake_attack00.png");
+	edb.addFrame(adv::ANIM::ATTACK, "snake_attack01.png");
+	edb.addFrame(adv::ANIM::ATTACK_END, "snake_attack02.png");
+	edb.addFrame(adv::ANIM::ATTACK_END, "snake_idle00.png");
+	edb.addFrame(adv::ANIM::ATTACK_END, "snake_idle01.png");
+	edb.addAnimationChain(adv::ANIM::ATTACK, adv::ANIM::ATTACK_END);
+	edb.addAnimationChain(adv::ANIM::ATTACK_END, adv::ANIM::IDLE);
+	edb.Plane = cPlane::Background;
+	edb.addFlag(cFlag::EnemySnake);
+	Database.Enemy.addObject("snake", edb);
+
+	cMissile mdb;
+	mdb.resize(vec2f(16, 16));
+	mdb.centralize(vec2f(8, 8));
+	mdb.addFrame(adv::ANIM::IDLE, "snake_missile.png");
+	mdb.Plane = cPlane::Background;
+	mdb.AddRotation(360);
+	Database.Missile.addObject("snake", mdb);
 
 	// Creating test scene
 	hdb.moveto(vec2f(0, 0));
+	hdb.HomeScene = &Game.TestScene;
 	Game.Hero = hdb;
-	db = unitDB.getCopy("snake");
-	db.moveto(vec2f(400, 268));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	edb = Database.Enemy.getCopy("snake");
+	edb.moveto(vec2f(400, 0));
+	Game.AddEnemy(edb, &Game.TestScene);
+	edb.makeUnique();
+	edb.moveto(vec2f(-100, 0));
+	Game.AddEnemy(edb, &Game.TestScene);
+
+	db = Database.Unit.getCopy("land");
 	db.moveto(vec2f(400, 300));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
+	db.moveto(vec2f(-100, 300));
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(0, 550));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(100, 400));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(600, 250));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(800, 100));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(100, 500));
-	Game.TestScene.UnitList.push_back(db);
-	db = unitDB.getCopy("land");
+	Game.AddUnit(db, &Game.TestScene);
+	db.makeUnique();
 	db.moveto(vec2f(150, 550));
-	Game.TestScene.UnitList.push_back(db);
+	Game.AddUnit(db, &Game.TestScene);
 
 	// Creating logic timers
 	advEvent.listenForTimer(TIMER_100MS, cGame::TimerAnimation);
 	advEvent.listenForTimer(TIMER_10MS, cGame::TimerHeroMovement);
+	advEvent.listenForTimer(TIMER_10MS, cGame::TimerEnemyMovement);
+	advEvent.listenForTimer(TIMER_10MS, cGame::TimerMissileMovement);
+	advEvent.listenForTimer(TIMER_50MS, cGame::TimerEnemyAI);
 	advEvent.listenForTimer(TIMER_10MS, cCamera::TimerAcceleration);
 	advEvent.listen(EVENT_KEY_PRESS, bind(&cHero::Jump, &Game.Hero, _1), sf::Keyboard::W);
 	advEvent.listen(EVENT_KEY_PRESS, bind(&cHero::Respawn, &Game.Hero, _1), sf::Keyboard::R);
 	advEvent.listen(EVENT_MOUSE_MOVE, cCamera::EventMouseMove);
+	advEvent.listen(EVENT_ANIM_BEGIN, cGame::EnemySnakeMissile, adv::ANIM::ATTACK_END, cFlag::EnemySnake);
 	
 	advCore.addThread(threadWindow, 0);
 
