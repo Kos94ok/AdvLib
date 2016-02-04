@@ -8,6 +8,8 @@ public:
 	vec2f Anchor;
 	vec2f Position;
 	vec2f TargetPosition;
+	vec2f MainSize = vec2f(800, 600);
+	vec2f MainOffset = vec2f(400, 0);
 
 	void Lock() { access.lock(); }
 	void Unlock() { access.unlock(); }

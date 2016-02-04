@@ -28,7 +28,9 @@ void cGame::AddMissile(string ID, vec2f Origin, vec2f Target, float Speed, int O
 {
 	cMissile db = Database.Missile.getCopy(ID);
 	db.moveto(Origin);
-	db.MovingVector = advMath.polar(Origin, Speed, advMath.getAngle(Origin, Target)) - Origin;
+	float Angle = advMath.getAngle(Origin, Target);
+	db.faceto(Angle);
+	db.MovingVector = advMath.polar(Origin, Speed, Angle) - Origin;
 	db.Owner = Owner;
 	AddMissile(db, HomeScene);
 }
@@ -41,7 +43,7 @@ void cGame::EnemySnakeMissile(adv::cEventArgs args)
 		cEnemy Enemy = Game.ActiveScene->EnemyList[i];
 		if (Enemy == id)
 		{
-			Game.AddMissile("snake", Enemy.pos(), Game.Hero.pos(), 300.00f, cOwner::Enemy, Game.ActiveScene);
+			Game.AddMissile("snake", Enemy.pos(), Game.Hero.pos(), Database.Snake_Missile_Speed, cOwner::Enemy, Game.ActiveScene);
 			break;
 		}
 	}
@@ -135,7 +137,7 @@ void cGame::TimerEnemyAI(adv::cEventArgs args)
 			else
 				Enemy->SetFacing(cFacing::Right);
 			// Attacking
-			if (advMath.getDistance(Enemy->pos(), Game.Hero.pos()) <= 200
+			if (advMath.getDistance(Enemy->pos(), Game.Hero.pos()) <= 400
 				&& Enemy->animation() == adv::ANIM::IDLE)
 			{
 				Enemy->setAnimation(adv::ANIM::ATTACK);
@@ -153,6 +155,7 @@ void cGame::TimerMissileMovement(adv::cEventArgs args)
 
 	for (int i = 0; i < Game.ActiveScene->MissileList.count(); i++)
 	{
+		bool MissileRemoved = false;
 		cMissile* Missile = &Game.ActiveScene->MissileList[i];
 		/*if (Enemy->VertAccel >= 0.00f && Enemy->CheckFalling())
 		{
@@ -164,14 +167,15 @@ void cGame::TimerMissileMovement(adv::cEventArgs args)
 		// Check collision with the enemies
 		if (Missile->Owner == cOwner::Player)
 		{
-			sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
+			//sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
 			for (cEnemy Enemy : Game.ActiveScene->EnemyList)
 			{
 				sf::FloatRect EnemyRect(Enemy.pos() - Enemy.center(), Enemy.size());
-				if (MissileRect.intersects(EnemyRect))
+				if (EnemyRect.contains(Missile->pos()))
 				{
 					Game.ActiveScene->MissileList.remove(i);
 					i -= 1;
+					MissileRemoved = true;
 					break;
 				}
 			}
@@ -180,11 +184,22 @@ void cGame::TimerMissileMovement(adv::cEventArgs args)
 		else if (Missile->Owner == cOwner::Enemy)
 		{
 			sf::FloatRect HeroRect(Game.Hero.pos() - Game.Hero.center(), Game.Hero.size());
-			sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
-			if (MissileRect.intersects(HeroRect))
+			//sf::FloatRect MissileRect(Missile->pos() - Missile->center(), Missile->size());
+			if (HeroRect.contains(Missile->pos()))
 			{
 				Game.ActiveScene->MissileList.remove(i);
 				i -= 1;
+				MissileRemoved = true;
+			}
+		}
+		if (Missile->LifeTimerEnabled && !MissileRemoved)
+		{
+			Missile->LifeTimer -= timemod;
+			if (Missile->LifeTimer <= 0.00f)
+			{
+				Game.ActiveScene->MissileList.remove(i);
+				i -= 1;
+				MissileRemoved = true;
 			}
 		}
 	}

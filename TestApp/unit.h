@@ -44,10 +44,20 @@ public:
 class cHero : public cMovingUnit
 {
 public:
+	enum Weapon
+	{
+		Soulshard,
+	};
+
+	int ActiveWeapon = cHero::Weapon::Soulshard;
 	int JumpCount = 0;
+	float WeaponCooldown = 0.00f;
 
 	void Jump(adv::cEventArgs args);
 	void Respawn(adv::cEventArgs args);
+	void Shoot(adv::cEventArgs args);
+
+	void TimerShooting(adv::cEventArgs args);
 
 	cHero(){}
 };
@@ -70,6 +80,9 @@ public:
 	int Owner;
 	float Facing = 0.00f;
 	float RotationSpeed = 0.00f;
+	bool LifeTimerEnabled = false;
+	float LifeTimer = -1.00f;
 
 	void AddRotation(float Speed) { RotationSpeed = Speed; }
+	void AddLifeTimer(float LifeTimer) { this->LifeTimer = LifeTimer; LifeTimerEnabled = true; }
 };

@@ -27,6 +27,7 @@
 // 1150 - Animation L1 events
 #define EVENT_ANIM_BEGIN				1150
 #define EVENT_ANIM_END					1151
+#define EVENT_ANIM_FRAME				1152
 
 namespace adv
 {

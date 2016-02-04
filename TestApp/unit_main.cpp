@@ -2,6 +2,9 @@
 #include "stdafx.h"
 #include "unit.h"
 #include "scene.h"
+#include "game.h"
+#include "database.h"
+#include "camera.h"
 
 void cMovingUnit::MoveHover(int time)
 {
@@ -96,5 +99,33 @@ void cHero::Jump(adv::cEventArgs args)
 
 void cHero::Respawn(adv::cEventArgs args)
 {
+	VertAccel = 0.00f;
 	moveto(vec2f(0, 0));
+}
+
+void cHero::Shoot(adv::cEventArgs args)
+{
+	// If the weapon is ready, then shoot
+	if (WeaponCooldown <= 0.00f && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (ActiveWeapon == cHero::Weapon::Soulshard)
+		{
+			Game.AddMissile("hero_soulshard", pos(), advMouse.posF - Camera.MainOffset + Camera.Position, Database.Hero_Soulshard_Speed, cOwner::Player, Game.ActiveScene);
+			WeaponCooldown = Database.Hero_Soulshard_Cooldown;
+		}
+	}
+}
+
+void cHero::TimerShooting(adv::cEventArgs args)
+{
+	float timemod = args.timer_tickDelay;
+	// Check the cooldown
+	if (WeaponCooldown > 0.00f)
+	{
+		WeaponCooldown -= timemod;
+	}
+	if (WeaponCooldown <= 0.00f)
+	{
+		Shoot(args);
+	}
 }

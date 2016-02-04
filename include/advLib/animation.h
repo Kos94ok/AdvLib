@@ -19,8 +19,8 @@ namespace adv
 	{
 	public:
 		vector<int> frameList;
-		int timePerFrame;
 		int nextAnimation = -1;
+		int timePerFrame = 1000;
 	};
 
 	class cAnimatedDrawable : public cDrawable

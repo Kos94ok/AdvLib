@@ -24,6 +24,7 @@ namespace adv
 		// For keyboard events: Key id
 		// For input wrong events: Wrong character id
 		// For timer events: Timer id (number)
+		// For animation frame events: Frame texture id
 		*/
 		int id = -1;
 		/*

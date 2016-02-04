@@ -41,6 +41,7 @@ void adv::cAnimatedDrawable::setFrame(int frame)
 	}
 	texturize(__animData[__animation].frameList[__frame]);
 	this->_end();
+	advEvent.add(EVENT_ANIM_FRAME, cEventArgs(__animData[__animation].frameList[__frame], id(), getFlags()));
 }
 
 void adv::cAnimatedDrawable::setAnimation(int anim, bool reset)
@@ -109,5 +110,7 @@ void adv::cAnimatedDrawable::dropAnimation(int anim)
 {
 	this->_begin();
 	__animData[anim].frameList.clear();
+	__animData[anim].nextAnimation = -1;
+	__animData[anim].timePerFrame = 1000;
 	this->_end();
 }
